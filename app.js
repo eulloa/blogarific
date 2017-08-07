@@ -7,6 +7,7 @@ const express = require('express'),
       cookieParser = require('cookie-parser'),
       customMiddleware = require('./util/Middleware'),
       errorHandler = require('errorhandler'),
+      handlebars = require('express-handlebars'),
       http = require('http'),
       logger = require('morgan'),
       mongoStore = require('connect-mongo')(session),
@@ -14,14 +15,12 @@ const express = require('express'),
 
 app.set('port', config[config.environment].application.port)
 
-app.set('views', path.join(__dirname, 'components'))
-app.set('view engine', 'jsx')
-app.engine('jsx', require('express-react-views').createEngine({
-    babel: {
-        presets: ['react', 'es2015']
-    },
-    transformViews: true
-}))
+let hbs = handlebars.create({
+    defaultLayout: 'main'
+})
+
+app.engine('handlebars', hbs.engine)
+app.set('view engine', 'handlebars')
 
 app.use(express.static(path.join(__dirname, 'static')))
 
@@ -47,7 +46,6 @@ app.use(session({
 
 //Custom Middleware
 app.use(customMiddleware.PageInfoSetup)
-app.use(customMiddleware.UserInfoSetup)
 
 require('./router')(app)
 

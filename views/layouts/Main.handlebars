@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="/css/main.css" rel="stylesheet">
+    <title>{{title}}</title>
+</head>
+<body>
+	<main>
+        {{> Nav}}
+
+        {{#if userInfo.username}}
+            {{> UserNav}}
+        {{/if}}
+
+        {{{body}}}
+    </main>    
+</body>
+</html>

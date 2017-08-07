@@ -6,7 +6,7 @@ module.exports = (app) => {
     //404
     app.use((req, res, next) => {
         res.pageInfo.notFound = {}
-		res.pageInfo.notFound.page = req.originalUrl
-        res.status(404).render('error/notFound404', res.pageInfo)
+		res.pageInfo.notFound.url = req.originalUrl
+        res.status(404).render('error/404', res.pageInfo)
     })
 }

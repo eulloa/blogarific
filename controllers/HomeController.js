@@ -1,4 +1,4 @@
 exports.Index = (req, res) => {
     res.pageInfo.title = 'Blogarific'
-    res.render('index', res.pageInfo)
+    res.render('home/index', res.pageInfo)
 }
