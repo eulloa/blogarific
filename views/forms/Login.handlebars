@@ -1,0 +1,11 @@
+<h1>Login</h1>
+<form method="post" action="/login">
+    <label for="email">Email</label>
+    <input type="text" name="email" />
+    <label for="password">Password</label>
+    <input type="password" name="password" />
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+    <input type="submit" value="Log in" />
+</form>
+
+<a href="/users/add">New user? Sign up!</a>

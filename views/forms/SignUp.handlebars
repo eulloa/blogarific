@@ -1,0 +1,12 @@
+<h1>Sign up</h1>
+<form method="post" action="/users/add">
+    <label for="email">Email</label>
+    <input type="text" name="email" />
+    <label for="password">Password</label>
+    <input type="password" name="password" />
+    <label for="password2">Verify Password</label>
+    <input type="password" name="password2" />
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+    <input type="submit" value="Sign up" />
+</form>
+<a href="/login">Already a member? Sign in</a>

@@ -1,10 +1,11 @@
 exports.PageInfoSetup = (req, res, next) => {
     res.pageInfo = {
-        title: '',
-        userInfo: {
-            username: null,
-            userid: null
-        }
+        title: ''
+    }
+
+    if (req.session.userid) {
+        res.pageInfo.userInfo = {}
+        res.pageInfo.userInfo.username = req.session.username
     }
 
     next()
