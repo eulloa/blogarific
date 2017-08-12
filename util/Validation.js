@@ -62,18 +62,11 @@ exports.ValidateDate = (dateString) => {
     return day > 0 && day <= monthLength[month - 1]
 }
 
-exports.SuccessRedirect = (res, route, message) => {
+exports.FlashRedirect = (req, res, redirectPath, type, message) => {
 	if (typeof message !== undefined) {
-		res.redirect(route + '?success=true&message=' + message)
+		req.flash(type, message)
 	} else {
-		res.redirect(route + '?success=true')
+		req.flash(type)
 	}
-}
-
-exports.ErrorRedirect = (res, route, message) => {
-	if (typeof message !== undefined) {
-		res.redirect(route + '?error=true&message=' + message)
-	} else {
-		res.redirect(route + '?error=true')
-	}
+	res.redirect(redirectPath)
 }

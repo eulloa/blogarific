@@ -7,6 +7,7 @@ const express = require('express'),
       cookieParser = require('cookie-parser'),
       customMiddleware = require('./util/Middleware'),
       errorHandler = require('errorhandler'),
+      flash = require('express-flash'),
       handlebars = require('express-handlebars'),
       http = require('http'),
       logger = require('morgan'),
@@ -43,6 +44,9 @@ app.use(session({
         url: 'mongodb://' + config[config.environment].database.host + '/' + config[config.environment].database.name
     })
 }))
+
+//Flash messages
+app.use(flash())
 
 //Custom Middleware
 app.use(customMiddleware.PageInfoSetup)

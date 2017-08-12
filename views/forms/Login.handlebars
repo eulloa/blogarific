@@ -1,11 +1,14 @@
-<h1>Login</h1>
 <form method="post" action="/login">
-    <label for="email">Email</label>
-    <input type="text" name="email" />
-    <label for="password">Password</label>
-    <input type="password" name="password" />
+    <h1>Login</h1>
+    <fieldset>
+        <label for="email">Email</label>
+        <input type="text" name="email" />
+    </fieldset>
+    <fieldset>
+        <label for="password">Password</label>
+        <input type="password" name="password" />
+    </fieldset>
     <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
     <input type="submit" value="Log in" />
+    <a href="/users/add">New user? Sign up!</a>
 </form>
-
-<a href="/users/add">New user? Sign up!</a>

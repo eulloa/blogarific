@@ -13,16 +13,16 @@ exports.VerifyLogin = (req, res) => {
     let password = req.body.password
 
     if (Validation.IsNullOrEmpty([email, password])) {
-        return Validation.ErrorRedirect(res, '/login', 'Please enter all fields')
+        return Validation.FlashRedirect(req, res, '/login', 'error', 'Please enter both your email and password to login')
     }
 
     if (!Validation.ValidateEmail(email)) {
-        return Validation.ErrorRedirect(res, '/login', 'Unrecognized email format')
+        return Validation.FlashRedirect(req, res, '/login', 'error', 'Invalid email format')
     }
 
     Model.UserModel.findOne({ email: email }, (error, user) => {
         if (error) {
-            return Validation.ErrorRedirect(res, '/login', 'There was an error signing in...')
+            return Validation.FlashRedirect(req, res, '/login', 'error', 'There was an error signing in... please try again')
         }
         
         if (user) {
@@ -30,21 +30,17 @@ exports.VerifyLogin = (req, res) => {
                 req.session.userid = user._id
                 req.session.username = user.email
                 res.pageInfo.title = 'Blogarific'
-                res.pageInfo.userInfo = {}
-                res.pageInfo.userInfo.username = user.email
-                console.log(res.pageInfo)
-                //TODO: undefined issue with message param in SuccessRedirect
-                Validation.SuccessRedirect(res, '/', 'Login successful') 
+                Validation.FlashRedirect(req, res, '/', 'info')
             } else {
-                Validation.ErrorRedirect(res, '/login', 'Your email or password were incorrect, please try loggin in again')
+                Validation.FlashRedirect(req, res, '/login', 'error', 'Incorrect login, please try again')
             }
         } else {
-            Validation.ErrorRedirect(res, '/login', 'The user was not found in the database')
+            Validation.FlashRedirect(req, res, '/login', 'error', 'The user was not found in the database')
         }
     })
 }
 
 exports.Logout = (req, res) => {
     req.session.destroy()
-    Validation.SuccessRedirect(res, '/', 'You have successfully logged out!')
+    res.redirect('/')
 }

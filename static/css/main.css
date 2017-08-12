@@ -42,5 +42,88 @@ button::-moz-focus-inner										{ padding: 0; border: 0; }
 .clearfix														{ *zoom: 1; }
 
 /* ==========================================================================
+   notifications
+========================================================================== */
+
+.notifications.info {
+    color: blue;
+}
+
+.notifications.success {
+    color: green;
+}
+
+.notifications.error {
+    color: red;
+}
+
+/* ==========================================================================
+   forms
+========================================================================== */
+
+form {
+    width: 500px;
+    margin: 0 auto;
+    background-color: #ddd;
+    padding: 1em;
+}
+
+form fieldset {
+    margin-bottom: .5em;
+}
+
+form h1 {
+    text-align: center;
+}
+
+form input {
+    width: 100%;
+}
+
+form input[type=submit] {
+    width: auto;
+    float: right;
+}
+
+form a {
+    display: block;
+}
+
+form label {
+    display: block;
+}
+
+/* ==========================================================================
    site styles
 ========================================================================== */
+main {
+    padding: 1em
+}
+
+nav {
+    height: 75px;
+    position: relative;
+    background-color: green;
+    color: #fff;
+    padding: 1em;
+}
+
+nav li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+nav ul:nth-of-type(1) {
+    float: left;
+}
+
+nav ul:nth-of-type(2) {
+    float: right;
+}
+
+footer {
+    background-color: green;
+    color: #fff;
+    text-align: center;
+    height: 50px;
+}

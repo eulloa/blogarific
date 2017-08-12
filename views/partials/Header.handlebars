@@ -1,0 +1,13 @@
+<header>
+	<nav>
+		<ul>
+			<li><a href="/">Home</a></li>
+			{{#unless userInfo.username }}
+				<li><a href="/login">Login</a></li>
+			{{/unless}}
+		</ul>
+		{{#if userInfo.username }}
+			{{> UserNav}}
+		{{/if}}
+	</nav>
+</header>

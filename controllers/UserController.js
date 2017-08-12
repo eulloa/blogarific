@@ -14,20 +14,20 @@ exports.CreateUser = (req, res) => {
     let password2 = req.body.password2
 
     if (Validation.IsNullOrEmpty([email, password, password2])) {
-        return Validation.ErrorRedirect(res, '/users/add', 'Please enter all information')
+        return Validation.FlashRedirect(req, res, '/users/add', 'error', 'All fields are required!')
     }
 
     if (!Validation.Equals(password, password2)) {
-        return Validation.ErrorRedirect(res, '/users/add', 'Passwords must match')       
+        return Validation.FlashRedirect(req, res, '/users/add', 'error', 'Passwords must match')
     }
 
     if (!Validation.ValidateEmail(email)) {
-        return Validation.ErrorRedirect(res, '/users/add', 'Unrecognized email format')
+        return Validation.FlashRedirect(req, res, '/users/add', 'error', 'Unrecognized email format')
     }
 
     Model.UserModel.findOne({ email: email }, (error, result) => {
         if (result) {
-            Validation.ErrorRedirect(res, '/users/add', 'This user email already exists...')
+            return Validation.FlashRedirect(req, res, '/users/add', 'error', 'This user email already exists...')
         } else {
             let salt = bcrypt.genSaltSync(10)
             let passwordHash = bcrypt.hashSync(password, salt)
@@ -40,13 +40,13 @@ exports.CreateUser = (req, res) => {
 
             u.save((error) => {
                 if (error) {
-                    Validation.ErrorRedirect(res, '/forms/signup', 'There was an error creating the user...')
+                    return Validation.FlashRedirect(req, res, '/users/add', 'error', 'There was an error creating the user...')
                 } else {
                     req.session.userid = u._id
                     req.session.username = u.email
                     res.pageInfo.userInfo = {}
                     res.pageInfo.userInfo.username = u.email
-                    Validation.SuccessRedirect(res, '/')
+                    return Validation.FlashRedirect(req, res, '/', 'info', 'Account created!')
                 }
             })
         }
