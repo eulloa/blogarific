@@ -55,8 +55,6 @@ exports.CreatePost = (req, res) => {
     let title = req.body.title
     let content = req.body.content
 
-    console.log(req)
-
     if (Validation.IsNullOrEmpty([title, content])) {
         return Validation.FlashRedirect(req, res, '/posts/add', 'error', 'Oops! Look\'s like you\'re missing some information...')
     }
@@ -77,5 +75,52 @@ exports.CreatePost = (req, res) => {
         } else {
             return Validation.FlashRedirect(req, res, '/posts/single/' + post._id, 'success', 'Post created successfully!')
         }
+    })
+}
+
+exports.DeletePost = (req, res) => {
+    let id = req.params.id
+
+    Model.PostModel.remove({ _id: id }, (error, result) => {
+        if (error) {
+            return Validation.FlashRedirect(req, res, '/posts/user', 'error', 'Oops! Unable to delete post, try again later...')
+        } else {
+            return Validation.FlashRedirect(req, res, '/posts/user', 'success', 'Post successfully deleted!')
+        }
+    })
+}
+
+exports.EditPost = (req, res) => {
+    let id = req.params.id
+
+    Model.PostModel.findOne({ _id: id }, (error, result) => {
+        if (error) {
+            return Validation.FlashRedirect(req, res, '/posts/user', 'error', 'Oops! There was an error finding that post, please try again...')
+        } else {
+            if (result) {
+                res.pageInfo.title = 'Edit Post '
+                res.pageInfo.post = result
+                res.render('posts/EditPost', res.pageInfo)
+            } else {
+                return Validation.FlashRedirect(req, res, '/posts/user', 'error', 'Oops! There was an error find that post, pleasey try again...')
+            }
+        }
+    })
+}
+
+exports.UpdatePost = (req, res) => {
+    let title = req.body.title
+    let content = req.body.content
+    let id = req.body.id
+
+    Model.PostModel.update(
+        { _id: id },
+        { title: title, content: content },
+        (error, result) => {
+            if (error) {
+                return Validation.FlashRedirect(req, res, '/posts/edit/' + id, 'error', 'Oops! There was an error updating the post, please try again...')
+            } else {
+                return Validation.FlashRedirect(req, res, '/posts/user', 'error', 'Post successfully updated!')
+            }
     })
 }

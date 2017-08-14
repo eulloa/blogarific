@@ -1,5 +1,9 @@
-<ul>
-    <li>Signed in as {{ userInfo.username }}</li>
-    <li><a href="/profile">Profile</a></li>
-    <li><a href="/logout">Sign out</a></li>
+<ul class="user">
+    <li class="more">
+        Signed in as {{ userInfo.username }}
+        <ul>
+            <li><a href="/profile">Profile</a></li>
+            <li><a href="/logout">Sign out</a></li>
+        </ul>
+    </li>
 </ul>

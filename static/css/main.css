@@ -119,12 +119,49 @@ nav li a {
     text-decoration: none;
 }
 
-nav ul:nth-of-type(1) {
+nav ul.main {
     float: left;
 }
 
-nav ul:nth-of-type(2) {
+nav ul.main li {
+    display: inline-block;
+    margin-right: .5em;
+}
+
+nav ul.main li:last-child {
+    margin-right: 0;
+}
+
+nav ul.user {
     float: right;
+    position: relative;
+}
+
+nav ul.user li.more {
+    position: relative;
+}
+
+nav ul.user li.more:after {
+    content: "\25BE";
+}
+
+nav ul.user li:hover > ul {
+    right: 0;
+}
+
+nav ul.user li > ul {
+    position: absolute;
+    right: 1000em;
+}
+
+.single-post {
+    border-bottom: 1px solid #ccc;
+    padding: .5em 0;
+}
+
+.single-post:last-child {
+    margin-bottom: 0;
+    border-bottom: 0;
 }
 
 footer {

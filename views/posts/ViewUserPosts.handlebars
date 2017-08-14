@@ -1,8 +1,10 @@
 <section class="posts">
     {{#posts}}
-        <section class="post single-post">
+        <section class="single-post">
             <h1>{{title}}</h1>
             <p>{{content}}</p>
+            <a href="/posts/edit/{{_id}}">Edit</a>
+            <a href="/posts/delete/{{_id}}" onclick="return confirm('Are you sure?')">Delete</a>
         </section>
     {{else}}
         <p>You haven&rsquo;t written any posts, click <a href="/posts/add">here</a> to get started!</p>

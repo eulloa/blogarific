@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt-nodejs')
 exports.Login = (req, res) => {
     res.pageInfo.title = 'Login'
     res.pageInfo.csrfToken = req.csrfToken()
-    res.render('forms/login', res.pageInfo)
+    res.render('user/Login', res.pageInfo)
 }
 
 exports.VerifyLogin = (req, res) => {

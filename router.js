@@ -20,11 +20,14 @@ module.exports = (app) => {
     app.get('/profile/', Authentication.IsUserLoggedIn, UserController.ShowUserProfile)
 
     //Posts
-    app.get('/posts', PostController.ViewAllPosts)
+    app.get('/posts/all', PostController.ViewAllPosts)
     app.get('/posts/single/:id', PostController.ViewSinglePost)
-    app.get('/posts/view', Authentication.IsUserLoggedIn, PostController.ViewUserPosts)
+    app.get('/posts/user', Authentication.IsUserLoggedIn, PostController.ViewUserPosts)
     app.post('/posts/add', PostController.CreatePost)
     app.get('/posts/add', Authentication.IsUserLoggedIn, PostController.AddPost)
+    app.get('/posts/delete/:id', Authentication.IsUserLoggedIn, PostController.DeletePost)
+    app.get('/posts/edit/:id', Authentication.IsUserLoggedIn, PostController.EditPost)
+    app.post('/posts/edit', Authentication.IsUserLoggedIn, PostController.UpdatePost)
 
     //404
     app.use((req, res, next) => {

@@ -1,7 +1,11 @@
 <header>
 	<nav>
-		<ul>
+		<ul class="main">
 			<li><a href="/">Home</a></li>
+			<li><a href="/posts/all">Posts</a></li>
+			{{#if userInfo.username }}
+				<li><a href="/posts/user">My Posts</a></li>
+			{{/if}}
 			{{#unless userInfo.username }}
 				<li><a href="/login">Login</a></li>
 			{{/unless}}

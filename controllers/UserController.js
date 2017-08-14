@@ -5,7 +5,7 @@ const Model = require('../models/Models')
 exports.AddUser = (req, res) => {
     res.pageInfo.title = 'Sign Up'
     res.pageInfo.csrfToken = req.csrfToken()
-    res.render('forms/signup', res.pageInfo)
+    res.render('user/SignUp', res.pageInfo)
 }
 
 exports.CreateUser = (req, res) => {
@@ -55,5 +55,5 @@ exports.CreateUser = (req, res) => {
 
 exports.ShowUserProfile = (req, res) => {
     res.pageInfo.title = req.session.username
-    res.render('user/profile', res.pageInfo)
+    res.render('user/Profile', res.pageInfo)
 }
