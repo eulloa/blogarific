@@ -1,6 +1,7 @@
 const HomeController = require('./controllers/HomeController')
 const LoginController = require('./controllers/LoginController')
 const UserController = require('./controllers/UserController')
+const PostController = require('./controllers/PostController')
 const Authentication = require('./util/Authentication')
 const csurf = require('csurf')
 const csurfProtection = csurf()
@@ -19,6 +20,11 @@ module.exports = (app) => {
     app.get('/profile/', Authentication.IsUserLoggedIn, UserController.ShowUserProfile)
 
     //Posts
+    app.get('/posts', PostController.ViewAllPosts)
+    app.get('/posts/single/:id', PostController.ViewSinglePost)
+    app.get('/posts/view', Authentication.IsUserLoggedIn, PostController.ViewUserPosts)
+    app.post('/posts/add', PostController.CreatePost)
+    app.get('/posts/add', Authentication.IsUserLoggedIn, PostController.AddPost)
 
     //404
     app.use((req, res, next) => {

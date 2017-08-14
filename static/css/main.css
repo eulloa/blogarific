@@ -85,6 +85,12 @@ form input[type=submit] {
     float: right;
 }
 
+form textarea {
+    width: 100%;
+    height: 100px;
+    padding: 1em;
+}
+
 form a {
     display: block;
 }
@@ -126,4 +132,14 @@ footer {
     color: #fff;
     text-align: center;
     height: 50px;
+    position: relative;
+}
+
+footer p {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
 }
