@@ -1,10 +1,11 @@
 const Validation = require('../util/Validation')
+const Notifications = require('../util/Notifications')
 const Model = require('../models/Models')
 
 exports.ViewAllPosts = (req, res) => {
     Model.PostModel.find({}).exec((error, result) => {
         if (error) {
-            return Validation.FlashRedirect(req, res, '/posts', 'error', 'Oops! There was a problem retrieving posts, please try again later...')
+            return Validation.FlashRedirect(req, res, '/posts', 'error', Notifications.GetNotification('error', 'postsNotFound'))
         } else {
             res.pageInfo.title = 'Posts'
             res.pageInfo.posts = result
@@ -18,7 +19,7 @@ exports.ViewSinglePost = (req, res) => {
 
     Model.PostModel.findOne({ _id: id }, (error, result) => {
         if (error) {
-            return Validation.FlashRedirect(req, res, '/', 'error', 'Oops! There was a problem locating that post, please try again...')
+            return Validation.FlashRedirect(req, res, '/', 'error', Notifications.GetNotification('error', 'postNotFound'))
         } else {
             if (result) {
                 res.pageInfo.title = 'Post - ' + result.title
@@ -26,7 +27,7 @@ exports.ViewSinglePost = (req, res) => {
                 res.pageInfo.content = result.content
                 res.render('posts/ViewSinglePost', res.pageInfo)
             } else {
-                return Validation.FlashRedirect(req, res, '/', 'error', 'Oops! There was a problem locating that post, please try again...')
+                return Validation.FlashRedirect(req, res, '/', 'error', Notifications.GetNotification('error', 'postNotFound'))
             }
         }
     })
@@ -37,7 +38,7 @@ exports.ViewUserPosts = (req, res) => {
 
     Model.PostModel.find({ userId: userid }, (error, result) => {
         if (error) {
-            return Validation.FlashRedirect(req, res, '/posts', 'error', 'Oops! There was an error retrieving your posts, please try again later...')
+            return Validation.FlashRedirect(req, res, '/posts', 'error', Notifications.GetNotification('error', 'userPostsNotFound'))
         } else {
             res.pageInfo.title = 'Posts'
             res.pageInfo.posts = result
@@ -56,7 +57,7 @@ exports.CreatePost = (req, res) => {
     let content = req.body.content
 
     if (Validation.IsNullOrEmpty([title, content])) {
-        return Validation.FlashRedirect(req, res, '/posts/add', 'error', 'Oops! Look\'s like you\'re missing some information...')
+        return Validation.FlashRedirect(req, res, '/posts/new', 'error', Notifications.GetNotification('error', 'allFieldsRequired'))
     }
 
     let post = new Model.PostModel({
@@ -71,9 +72,9 @@ exports.CreatePost = (req, res) => {
 
     post.save((error) => {
         if (error) {
-            return Validation.FlashRedirect(req, res, '/posts/add', 'error', 'Sorry! It appears something went wrong... please try creating your post again.')
+            return Validation.FlashRedirect(req, res, '/posts/new', 'error', Notifications.GetNotification('error', 'postNotSaved'))
         } else {
-            return Validation.FlashRedirect(req, res, '/posts/single/' + post._id, 'success', 'Post created successfully!')
+            return Validation.FlashRedirect(req, res, '/posts/single/' + post._id, 'success', Notifications.GetNotification('success', 'postCreated'))
         }
     })
 }
@@ -83,9 +84,9 @@ exports.DeletePost = (req, res) => {
 
     Model.PostModel.remove({ _id: id }, (error, result) => {
         if (error) {
-            return Validation.FlashRedirect(req, res, '/posts/user', 'error', 'Oops! Unable to delete post, try again later...')
+            return Validation.FlashRedirect(req, res, '/posts/user', 'error', Notifications.GetNotification('error', 'postNotDeleted'))
         } else {
-            return Validation.FlashRedirect(req, res, '/posts/user', 'success', 'Post successfully deleted!')
+            return Validation.FlashRedirect(req, res, '/posts/user', 'success', Notifications.GetNotification('success', 'postDeleted'))
         }
     })
 }
@@ -95,14 +96,14 @@ exports.EditPost = (req, res) => {
 
     Model.PostModel.findOne({ _id: id }, (error, result) => {
         if (error) {
-            return Validation.FlashRedirect(req, res, '/posts/user', 'error', 'Oops! There was an error finding that post, please try again...')
+            return Validation.FlashRedirect(req, res, '/posts/user', 'error', Notifications.GetNotification('error', 'postNotFound'))
         } else {
             if (result) {
                 res.pageInfo.title = 'Edit Post '
                 res.pageInfo.post = result
                 res.render('posts/EditPost', res.pageInfo)
             } else {
-                return Validation.FlashRedirect(req, res, '/posts/user', 'error', 'Oops! There was an error find that post, pleasey try again...')
+                return Validation.FlashRedirect(req, res, '/posts/user', 'error', Notifications.GetNotification('error', 'postNotFound'))
             }
         }
     })
@@ -118,9 +119,9 @@ exports.UpdatePost = (req, res) => {
         { title: title, content: content },
         (error, result) => {
             if (error) {
-                return Validation.FlashRedirect(req, res, '/posts/edit/' + id, 'error', 'Oops! There was an error updating the post, please try again...')
+                return Validation.FlashRedirect(req, res, '/posts/edit/' + id, 'error', Notifications.GetNotification('error', 'postNotUpdated'))
             } else {
-                return Validation.FlashRedirect(req, res, '/posts/user', 'error', 'Post successfully updated!')
+                return Validation.FlashRedirect(req, res, '/posts/user', 'success', Notifications.GetNotification('success', 'postUpdated'))
             }
     })
 }

@@ -1,4 +1,5 @@
 const Validation = require('../util/Validation')
+const Notifications = require('../util/Notifications')
 const bcrypt = require('bcrypt-nodejs')
 const Model = require('../models/Models')
 
@@ -14,20 +15,20 @@ exports.CreateUser = (req, res) => {
     let password2 = req.body.password2
 
     if (Validation.IsNullOrEmpty([email, password, password2])) {
-        return Validation.FlashRedirect(req, res, '/users/add', 'error', 'All fields are required!')
+        return Validation.FlashRedirect(req, res, '/users/add', 'error', Notifications.GetNotification('error', 'allFieldsRequired'))
     }
 
     if (!Validation.Equals(password, password2)) {
-        return Validation.FlashRedirect(req, res, '/users/add', 'error', 'Passwords must match')
+        return Validation.FlashRedirect(req, res, '/users/add', 'error', Notifications.GetNotification('error', 'passwordMismatch'))
     }
 
     if (!Validation.ValidateEmail(email)) {
-        return Validation.FlashRedirect(req, res, '/users/add', 'error', 'Unrecognized email format')
+        return Validation.FlashRedirect(req, res, '/users/add', 'error', Notifications.GetNotification('error', 'invalidEmailFormat'))
     }
 
     Model.UserModel.findOne({ email: email }, (error, result) => {
         if (result) {
-            return Validation.FlashRedirect(req, res, '/users/add', 'error', 'This user email already exists...')
+            return Validation.FlashRedirect(req, res, '/users/add', 'error', Notifications.GetNotification('error', 'duplicateUser'))
         } else {
             let salt = bcrypt.genSaltSync(10)
             let passwordHash = bcrypt.hashSync(password, salt)
@@ -40,13 +41,13 @@ exports.CreateUser = (req, res) => {
 
             u.save((error) => {
                 if (error) {
-                    return Validation.FlashRedirect(req, res, '/users/add', 'error', 'There was an error creating the user...')
+                    return Validation.FlashRedirect(req, res, '/users/add', 'error', Notifications.GetNotification('error', 'userNotCreated'))
                 } else {
                     req.session.userid = u._id
                     req.session.username = u.email
                     res.pageInfo.userInfo = {}
                     res.pageInfo.userInfo.username = u.email
-                    return Validation.FlashRedirect(req, res, '/', 'info', 'Account created!')
+                    return Validation.FlashRedirect(req, res, '/', 'info', Notifications.GetNotification('success', 'userCreated'))
                 }
             })
         }

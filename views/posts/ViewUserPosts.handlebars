@@ -3,8 +3,8 @@
         <section class="single-post">
             <h1>{{title}}</h1>
             <p>{{content}}</p>
-            <a href="/posts/edit/{{_id}}">Edit</a>
-            <a href="/posts/delete/{{_id}}" onclick="return confirm('Are you sure?')">Delete</a>
+            <a class="btn edit" href="/posts/edit/{{_id}}">Edit</a>
+            <a class="btn delete" href="/posts/delete/{{_id}}" onclick="return confirm('Are you sure?')">Delete</a>
         </section>
     {{else}}
         <p>You haven&rsquo;t written any posts, click <a href="/posts/add">here</a> to get started!</p>

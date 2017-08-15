@@ -1,4 +1,5 @@
 const Validation = require('../util/Validation')
+const Notifications = require('../util/Notifications')
 const Model = require('../models/Models')
 const bcrypt = require('bcrypt-nodejs')
 
@@ -13,16 +14,16 @@ exports.VerifyLogin = (req, res) => {
     let password = req.body.password
 
     if (Validation.IsNullOrEmpty([email, password])) {
-        return Validation.FlashRedirect(req, res, '/login', 'error', 'Please enter both your email and password to login')
+        return Validation.FlashRedirect(req, res, '/login', 'error', Notifications.GetNotification('error', 'allFieldsRequired'))
     }
 
     if (!Validation.ValidateEmail(email)) {
-        return Validation.FlashRedirect(req, res, '/login', 'error', 'Invalid email format')
+        return Validation.FlashRedirect(req, res, '/login', 'error', Notifications.GetNotification('error', 'invalidEmailFormat'))
     }
 
     Model.UserModel.findOne({ email: email }, (error, user) => {
         if (error) {
-            return Validation.FlashRedirect(req, res, '/login', 'error', 'There was an error signing in... please try again')
+            return Validation.FlashRedirect(req, res, '/login', 'error', Notifications.GetNotification('error', 'loginError'))
         }
         
         if (user) {
@@ -32,10 +33,10 @@ exports.VerifyLogin = (req, res) => {
                 res.pageInfo.title = 'Blogarific'
                 Validation.FlashRedirect(req, res, '/', 'info')
             } else {
-                Validation.FlashRedirect(req, res, '/login', 'error', 'Incorrect login, please try again')
+                Validation.FlashRedirect(req, res, '/login', 'error', Notifications.GetNotification('error', 'loginError'))
             }
         } else {
-            Validation.FlashRedirect(req, res, '/login', 'error', 'The user was not found in the database')
+            Validation.FlashRedirect(req, res, '/login', 'error', Notifications.GetNotification('error', 'userNotFound'))
         }
     })
 }

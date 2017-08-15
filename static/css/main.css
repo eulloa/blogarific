@@ -20,7 +20,7 @@ body															{ width: 100%; }
 
 hr 																{ display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 0 auto; padding: 0; }
 
-/* input, textarea, button, select									{ -moz-appearance: none; -webkit-appearance: none; appearance: none; border-radius: 0; border: none; } */
+input, textarea, button, select									{ -moz-appearance: none; -webkit-appearance: none; appearance: none; border-radius: 0; border: none; }
 
 audio, canvas, iframe, img, svg, video 							{ vertical-align: middle; }
 fieldset 														{ border: 0; margin: 0; padding: 0; }
@@ -45,6 +45,11 @@ button::-moz-focus-inner										{ padding: 0; border: 0; }
    notifications
 ========================================================================== */
 
+.notifications {
+    position: absolute;
+    font-size: .8em;
+}
+
 .notifications.info {
     color: blue;
 }
@@ -55,6 +60,32 @@ button::-moz-focus-inner										{ padding: 0; border: 0; }
 
 .notifications.error {
     color: red;
+}
+
+/* ==========================================================================
+   shared
+========================================================================== */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.btn {
+    color: #fff;
+    text-decoration: none;
+    padding: .5em;
+    border-radius: 3px;
+    display: inline-block;
+    margin: .5em 0;
+}
+
+.btn.delete {
+    background-color: red;
+}
+
+.btn.edit  {
+    background-color: blue;
 }
 
 /* ==========================================================================
@@ -82,7 +113,6 @@ form input {
 
 form input[type=submit] {
     width: auto;
-    float: right;
 }
 
 form textarea {
@@ -97,21 +127,31 @@ form a {
 
 form label {
     display: block;
+    font-size: .8em;
 }
 
 /* ==========================================================================
    site styles
 ========================================================================== */
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubunutu, Cantarell, Helvetica, Neue, sans-serif;
+}
+
+header {
+    background-color: green;
+}
+
 main {
-    padding: 1em
+    padding: 1em 0;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
 nav {
-    height: 75px;
     position: relative;
-    background-color: green;
     color: #fff;
-    padding: 1em;
+    padding: 1em 0;
 }
 
 nav li a {
@@ -120,7 +160,9 @@ nav li a {
 }
 
 nav ul.main {
-    float: left;
+    position: relative;
+    display: inline-block;
+    margin: .5em 0;
 }
 
 nav ul.main li {
@@ -133,8 +175,10 @@ nav ul.main li:last-child {
 }
 
 nav ul.user {
-    float: right;
-    position: relative;
+    position: absolute;
+    right: 0;
+    margin: .5em 0;
+    display: inline-block;
 }
 
 nav ul.user li.more {
@@ -147,16 +191,25 @@ nav ul.user li.more:after {
 
 nav ul.user li:hover > ul {
     right: 0;
+    left: 0;
 }
 
 nav ul.user li > ul {
     position: absolute;
     right: 1000em;
+    background-color: #fafafb;
+    padding: .5em;
+    border-radius: 3px;
+    border: 1px solid green;
+}
+
+nav li > ul li a {
+    color: #000;
 }
 
 .single-post {
     border-bottom: 1px solid #ccc;
-    padding: .5em 0;
+    padding: .75em;
 }
 
 .single-post:last-child {

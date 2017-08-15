@@ -1,17 +1,19 @@
 <header>
-	<nav>
-		<ul class="main">
-			<li><a href="/">Home</a></li>
-			<li><a href="/posts/all">Posts</a></li>
+	<div class="container">
+		<nav>
+			<ul class="main">
+				<li><a href="/">Home</a></li>
+				<li><a href="/posts/all">Posts</a></li>
+				{{#if userInfo.username }}
+					<li><a href="/posts/user">My Posts</a></li>
+				{{/if}}
+				{{#unless userInfo.username }}
+					<li><a href="/login">Login</a></li>
+				{{/unless}}
+			</ul>
 			{{#if userInfo.username }}
-				<li><a href="/posts/user">My Posts</a></li>
+				{{> UserNav}}
 			{{/if}}
-			{{#unless userInfo.username }}
-				<li><a href="/login">Login</a></li>
-			{{/unless}}
-		</ul>
-		{{#if userInfo.username }}
-			{{> UserNav}}
-		{{/if}}
-	</nav>
+		</nav>
+	</div>
 </header>
