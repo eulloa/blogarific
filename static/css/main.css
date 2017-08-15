@@ -181,6 +181,15 @@ nav ul.user {
     display: inline-block;
 }
 
+nav ul.user img {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    border-radius: 35px;
+    left: -42px;
+    top: -8px;
+}
+
 nav ul.user li.more {
     position: relative;
 }
@@ -189,12 +198,12 @@ nav ul.user li.more:after {
     content: "\25BE";
 }
 
-nav ul.user li:hover > ul {
+nav ul.user li:hover ul {
     right: 0;
     left: 0;
 }
 
-nav ul.user li > ul {
+nav ul.user li ul {
     position: absolute;
     right: 1000em;
     background-color: #fafafb;
@@ -203,8 +212,16 @@ nav ul.user li > ul {
     border: 1px solid green;
 }
 
-nav li > ul li a {
+nav li ul li a {
     color: #000;
+}
+
+nav li ul li {
+    padding-bottom: .25em;
+}
+
+nav li ul li:last-child {
+    padding-bottom: 0;
 }
 
 .single-post {

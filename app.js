@@ -8,6 +8,7 @@ const express = require('express'),
       customMiddleware = require('./util/Middleware'),
       errorHandler = require('errorhandler'),
       flash = require('express-flash'),
+      gravatar = require('./util/Gravatar'),
       handlebars = require('express-handlebars'),
       http = require('http'),
       logger = require('morgan'),
@@ -17,7 +18,8 @@ const express = require('express'),
 app.set('port', config[config.environment].application.port)
 
 let hbs = handlebars.create({
-    defaultLayout: 'main'
+    defaultLayout: 'main',
+    helpers: gravatar
 })
 
 app.engine('handlebars', hbs.engine)

@@ -1,6 +1,7 @@
 <ul class="user">
     <li class="more">
-        Signed in as {{ userInfo.username }}
+        <img src="{{#GetGravatar userInfo.username}}{{/GetGravatar}}" />
+        {{ userInfo.username }}
         <ul>
             <li><a href="/profile">Profile</a></li>
             <li><a href="/logout">Sign out</a></li>
