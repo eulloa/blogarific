@@ -1,0 +1,346 @@
+/* ==========================================================================
+   Resets
+========================================================================== */
+
+html,body,main,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video { border: 0; font-size: 100%; font: inherit; vertical-align: baseline; margin: 0; padding: 0; }
+main,article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section { display: block; }
+body 															{ line-height: 1; }
+ol,ul	 														{ list-style: none; }
+blockquote,q 													{ quotes: none; }
+blockquote:before,blockquote:after,q:before,q:after 			{ content: none; }
+table															{ border-collapse: collapse; border-spacing: 0; }
+*																{ margin: 0; padding: 0; }
+*, *:before, *:after 											{ -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+
+html 															{ background-color: #fff; font-size: 1em; height: 100%; width: 100%; }
+body															{ width: 100%; }
+
+::-moz-selection 												{ background: #b3d4fc; text-shadow: none; }
+::selection 													{ background: #b3d4fc; text-shadow: none; }
+
+hr 																{ display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 0 auto; padding: 0; }
+
+input, textarea, button, select									{ -moz-appearance: none; -webkit-appearance: none; appearance: none; border-radius: 0; border: none; }
+
+audio, canvas, iframe, img, svg, video 							{ vertical-align: middle; }
+fieldset 														{ border: 0; margin: 0; padding: 0; }
+textarea 														{ resize: vertical; }
+
+button															{ margin: 0; padding: 0; border: 0; background: transparent; font-family: inherit; font-size: 1em; cursor: pointer; outline: none; overflow: visible; }
+button::-moz-focus-inner										{ padding: 0; border: 0; }
+
+/* ==========================================================================
+   variables
+========================================================================== */
+
+/* colors */
+$purplePrimary: #972B46;
+$bluePrimary: #84B4EB;
+$whitePrimary: #fafafb;
+$white: #fff;
+$black: #000;
+$cream: #FFDDBC;
+$greenPrimary: #4C644F;
+$greenSecondary: #C7D89B;
+$deepRed: #7A122E;
+$lightGray: #ccc;
+$grayDark: #777;
+
+/* fonts */
+$siteFonts: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubunutu, Cantarell, Helvetica, Neue, sans-serif;
+
+/* ==========================================================================
+   Helpers
+========================================================================== */
+
+.notransition, .notransition section							{ -webkit-transition-duration: 0 !important; -moz-transition-duration: 0 !important; -ms-transition-duration: 0 !important; transition-duration: 0 !important; -webkit-transition-delay: 0 !important; -moz-transition-delay: 0 !important; -ms-transition-delay: 0 !important; transition-delay: 0 !important; }
+
+.ir																{ text-indent: 100%; white-space: nowrap; overflow: hidden; }
+
+.clearfix:before, .clearfix:after 								{ content: " "; display: table; }
+.clearfix:after													{ clear: both; }
+.clearfix														{ *zoom: 1; }
+
+/* ==========================================================================
+   notifications
+========================================================================== */
+
+.notifications {
+    font-size: .8em;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1em;
+    text-transform: uppercase;
+}
+
+.notifications.info {
+    color: $bluePrimary;
+}
+
+.notifications.success {
+    color: $greenPrimary;
+}
+
+.notifications.error {
+    color: $deepRed;
+}
+
+/* ==========================================================================
+   shared
+========================================================================== */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.btn {
+    color: $white;
+    text-decoration: none;
+    padding: .5em;
+    border-radius: 3px;
+    display: inline-block;
+    margin: .5em 0;
+    font-size: .85em;
+    cursor: pointer;
+}
+
+.btn.delete {
+    background-color: $deepRed;
+}
+
+.btn.edit  {
+    background-color: $bluePrimary;
+}
+
+.btn.new-post {
+    background-color: $greenPrimary;
+}
+
+.transition {
+    transition: all .25s linear;
+}
+
+/* ==========================================================================
+   forms
+========================================================================== */
+
+form {
+    width: 500px;
+    margin: 0 auto;
+    background-color: $bluePrimary;
+    padding: 1em;
+    color: $white;
+
+    fieldset {
+        margin-bottom: .5em;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    input {
+        font-family: $siteFonts;
+    }
+
+    input[type=text],
+    input[type=password] {
+        width: 100%;
+        padding: 1.25em;
+        height: 1.75em;
+    }
+
+    input[type=submit] {
+        width: auto;
+        background-color: $greenPrimary;
+    }
+
+    label {
+        display: block;
+        font-size: .8em;
+        margin-bottom: .25em;
+    }
+
+    textarea {
+        width: 100%;
+        height: 100px;
+        padding: 1em;
+    }
+
+    a {
+        display: block;
+        color: $white;
+        text-decoration: none;
+        font-size: .8em;
+        margin-top: .5em;
+    }
+}
+
+/* ==========================================================================
+   site styles
+========================================================================== */
+
+body {
+    font-family: $siteFonts;
+}
+
+header {
+    background-color: $purplePrimary;
+    border-top: 3px solid $bluePrimary;
+}
+
+main {
+    padding: 1em .5em;
+    margin: 0 auto;
+    max-width: 1200px;
+    color: $grayDark;
+}
+
+nav {
+    position: relative;
+    color: $white;
+
+    li a {
+        color: $white;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    ul.main {
+        position: relative;
+        display: inline-block;   
+    }
+
+    ul.main a {
+        transition: all .25s linear;
+        padding: 1.25em .5em;
+    }
+
+    ul.main a:hover {
+        color: $purplePrimary;
+        background-color: $whitePrimary;
+    }
+
+    ul.main li {
+        display: inline-block;
+        margin-right: .5em;
+    }
+
+    ul.main li:last-child {
+        margin-right: 0;
+    }
+
+    ul.user {
+        position: absolute;
+        right: 0;
+        display: inline-block;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+
+    ul.user img {
+        width: 35px;
+        height: 35px;
+        position: absolute;
+        border-radius: 35px;
+        left: -42px;
+        top: -8px;
+    }
+
+    ul.user li.more {
+        position: relative;
+    }
+
+    ul.user li.more:after {
+        content: "\25BE";
+    }
+    
+    ul.user li:hover ul {
+        right: 0;
+        left: 0;
+    }
+    
+    ul.user li ul {
+        position: absolute;
+        right: 1000em;
+        background-color: $whitePrimary;
+        padding: .5em;
+        border-radius: 3px;
+        border: 1px solid $purplePrimary;
+        width: 100%;
+    }
+    
+    li ul li a {
+        color: $black;
+        padding: 0 0 .5em 0;
+    }
+    
+    li ul li a:last-child {
+        padding-bottom: 0;
+    }
+}
+
+.single-post {
+    border-bottom: 1px solid $lightGray;
+    padding: .75em;
+    position: relative;
+    display: flex;
+
+    :last-child {
+        margin-bottom: 0;
+        border-bottom: 0;    
+    }
+
+    h1 {
+        text-transform: uppercase;
+        margin-bottom: .25em;
+    }
+
+    p {
+        font-size: .9em;
+    }
+
+    .post-content {
+        width: 80%;
+    }
+
+    .post-info {
+        width: 20%;    
+
+        h2 {
+            font-size: .8em;
+        }
+
+        img {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+
+.profile {
+    img {
+        border-radius: 80px;
+        margin-bottom: .5em;
+    }
+}
+
+footer {
+    background-color: $purplePrimary;
+    color: $white;
+    text-align: center;
+    height: 50px;
+    position: relative;
+
+    p {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+}

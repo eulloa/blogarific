@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
-    "test": "test"
+    "test": "test",
+    "build-css": "node-sass-chokidar static/css/ -o static/css/",
+    "watch-css": "npm run build-css && node-sass-chokidar static/css/ -o static/css/ --watch --recursive"
   },
   "author": "Efren Ulloa",
   "license": "MIT",
@@ -25,5 +27,8 @@
     "method-override": "^2.3.9",
     "mongoose": "^4.11.5",
     "morgan": "^1.8.2"
+  },
+  "devDependencies": {
+    "node-sass-chokidar": "0.0.3"
   }
 }
