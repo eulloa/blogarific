@@ -8,8 +8,8 @@ const express = require('express'),
       customMiddleware = require('./util/Middleware'),
       errorHandler = require('errorhandler'),
       flash = require('express-flash'),
-      gravatar = require('./util/Gravatar'),
       handlebars = require('express-handlebars'),
+      handlebarsHelpers = require('./helpers/HandlebarsHelpers'),
       http = require('http'),
       logger = require('morgan'),
       mongoStore = require('connect-mongo')(session),
@@ -19,7 +19,7 @@ app.set('port', config[config.environment].application.port)
 
 let hbs = handlebars.create({
     defaultLayout: 'main',
-    helpers: gravatar
+    helpers: handlebarsHelpers
 })
 
 app.engine('handlebars', hbs.engine)

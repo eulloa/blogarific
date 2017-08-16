@@ -34,7 +34,7 @@ exports.ViewSinglePost = (req, res) => {
 }
 
 exports.ViewUserPosts = (req, res) => {
-    let userid = req.session.userid
+    let userid = req.session.username
 
     Model.PostModel.find({ userId: userid }, (error, result) => {
         if (error) {
@@ -61,9 +61,9 @@ exports.CreatePost = (req, res) => {
     }
 
     let post = new Model.PostModel({
-        userId: req.session.userid,
+        userId: req.session.username,
         title: title,
-        date: Date.now(),
+        date: new Date(),
         content: content,
         likes: 0,
         dislikes: 0,

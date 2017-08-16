@@ -1,12 +1,17 @@
 <section class="posts">
+    <a href="/posts/new">New Post</a>
     {{#posts}}
         <section class="single-post">
-            <h1>{{title}}</h1>
-            <p>{{content}}</p>
-            <a class="btn edit" href="/posts/edit/{{_id}}">Edit</a>
-            <a class="btn delete" href="/posts/delete/{{_id}}" onclick="return confirm('Are you sure?')">Delete</a>
+            <section class="post-content">
+                <h1>{{title}}</h1>
+                <p>{{content}}</p>
+            </section>
+            <section class="post-info">
+                <a class="btn edit" href="/posts/edit/{{_id}}">Edit</a>
+                <a class="btn delete" href="/posts/delete/{{_id}}" onclick="return confirm('Are you sure?')">Delete</a>
+            </section>
         </section>
     {{else}}
-        <p>You haven&rsquo;t written any posts, click <a href="/posts/add">here</a> to get started!</p>
+        <p>You haven&rsquo;t written any posts, click <a href="/posts/new">here</a> to get started!</p>
     {{/posts}}
 </section>

@@ -56,5 +56,6 @@ exports.CreateUser = (req, res) => {
 
 exports.ShowUserProfile = (req, res) => {
     res.pageInfo.title = req.session.username
+    res.pageInfo.username = req.session.username
     res.render('user/Profile', res.pageInfo)
 }

@@ -1,8 +1,14 @@
 <section class="posts">
     {{#posts}}
         <section class="single-post">
-            <h1>{{title}}</h1>
-            <p>{{content}}</p>
+            <section class="post-content">
+                <h1>{{title}}</h1>
+                <p>{{content}}</p>
+            </section>
+            <section class="post-info">
+                <h2>{{#FormatDate date}}{{/FormatDate}}</h2>
+                <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />
+            </section>
         </section>
     {{else}}
         <p>There are no posts, come back later!</p>
