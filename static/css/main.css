@@ -292,7 +292,7 @@ nav {
   padding: .75em;
   position: relative;
   display: flex; }
-  .single-post :last-child {
+  .single-post:last-child {
     margin-bottom: 0;
     border-bottom: 0; }
   .single-post h1 {

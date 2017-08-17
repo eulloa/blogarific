@@ -2,12 +2,20 @@
     {{#posts}}
         <section class="single-post">
             <section class="post-content">
-                <h1>{{title}}</h1>
-                <p>{{content}}</p>
+                <h1>{{ title }}</h1>
+                <p>{{ content }}</p>
+                {{!-- {{#if ../userInfo.username }}
+                no - this happens client side
+                    <a class="like" href="/posts/like/{{_id}}">Like?</a>
+                {{/if}} --}}
+                {{#if likes}}
+                    <p>Likes: {{ likes }}</p>
+                {{/if}}
             </section>
             <section class="post-info">
                 <h2>{{#FormatDate date}}{{/FormatDate}}</h2>
                 <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />
+                <p></p>
             </section>
         </section>
     {{else}}

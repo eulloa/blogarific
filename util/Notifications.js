@@ -15,6 +15,7 @@ exports.GetNotification = (type, id) => {
         'invalidEmailFormat': 'Please check the format of your email and try again!',
         'loginError': 'There was an error signing in, please try again!',
         'passwordMismatch': 'Your passwords do not match!',
+        'postLikeError': 'Oops! There was a problem liking that post, please try again!',
         'postNotDeleted': 'Oops! There was a problem deleting your post, please try again!',
         'postNotFound': 'Oops! There was a problem locating that post, please try again!',
         'postsNotFound': 'Oops! There was a problem retrieving posts, please try again!',

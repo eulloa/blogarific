@@ -14,7 +14,6 @@ mongoose.connect(connectionString, {
 let UserSchema = mongoose.Schema({
     password: String,
     email: String,
-    //profileImage: String,
     followers: []
 })
 
@@ -24,7 +23,7 @@ let PostSchema = mongoose.Schema({
     date:  Date,
     content: String,
     likes: Number,
-    dislikes: Number,
+    likedBy: [String],
     comments: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }
 })
 

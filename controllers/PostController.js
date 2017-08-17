@@ -9,6 +9,7 @@ exports.ViewAllPosts = (req, res) => {
         } else {
             res.pageInfo.title = 'Posts'
             res.pageInfo.posts = result
+            res.pageInfo.likes = result.likes
             res.render('posts/ViewAllPosts', res.pageInfo)
         }
     })
@@ -66,8 +67,8 @@ exports.CreatePost = (req, res) => {
         date: new Date(),
         content: content,
         likes: 0,
-        dislikes: 0,
-        comments: null
+        comments: null,
+        likedBy: []
     })
 
     post.save((error) => {
@@ -123,5 +124,24 @@ exports.UpdatePost = (req, res) => {
             } else {
                 return Validation.FlashRedirect(req, res, '/posts/user', 'success', Notifications.GetNotification('success', 'postUpdated'))
             }
+    })
+}
+
+exports.LikePost = (req, res) => {
+    let postId = req.params.id
+    let userid = req.session.username
+
+    Model.PostModel.findOneAndUpdate(
+        { _id: postId },
+        { 
+            $inc: { likes: 1 },
+            $push: { likedBy: userid }
+        }
+    ).exec((error, result) => {
+        if (error) {
+            return Validation.FlashRedirect(req, res, '/posts/all', 'error', Notifications.GetNotification('error', 'postLikeError'))
+        } else {
+            res.redirect('/posts/all')
+        }
     })
 }
