@@ -4,12 +4,11 @@
             <section class="post-content">
                 <h1>{{ title }}</h1>
                 <p>{{ content }}</p>
-                {{!-- {{#if ../userInfo.username }}
-                no - this happens client side
-                    <a class="like" href="/posts/like/{{_id}}">Like?</a>
-                {{/if}} --}}
+                {{#if ../userInfo.username }}
+                    <span class="likePost" data-postid="{{_id}}">Like?</span>
+                {{/if}}
                 {{#if likes}}
-                    <p>Likes: {{ likes }}</p>
+                    <p class="likes">Likes: {{ likes }}</p>
                 {{/if}}
             </section>
             <section class="post-info">

@@ -28,7 +28,7 @@ module.exports = (app) => {
     app.get('/posts/delete/:id', Authentication.IsUserLoggedIn, PostController.DeletePost)
     app.get('/posts/edit/:id', Authentication.IsUserLoggedIn, PostController.EditPost)
     app.post('/posts/edit', Authentication.IsUserLoggedIn, PostController.UpdatePost)
-    app.get('/posts/like/:id', Authentication.IsUserLoggedIn, PostController.LikePost)
+    app.post('/posts/like/:id', Authentication.IsUserLoggedIn, PostController.LikePost)
 
     //404
     app.use((req, res, next) => {

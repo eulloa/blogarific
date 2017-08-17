@@ -131,17 +131,19 @@ exports.LikePost = (req, res) => {
     let postId = req.params.id
     let userid = req.session.username
 
-    Model.PostModel.findOneAndUpdate(
+    Model.PostModel.findByIdAndUpdate(
         { _id: postId },
-        { 
+        {
             $inc: { likes: 1 },
-            $push: { likedBy: userid }
+            $push: { likedBy: userid },
+        },
+        { new: true },
+        (error, result) => {
+            if (error) {
+                return Validation.FlashRedirect(req, res, '/posts/all', 'error', Notifications.GetNotification('error', 'postLikeError'))
+            } else {
+                res.status(200).json(result.likes)
+            }
         }
-    ).exec((error, result) => {
-        if (error) {
-            return Validation.FlashRedirect(req, res, '/posts/all', 'error', Notifications.GetNotification('error', 'postLikeError'))
-        } else {
-            res.redirect('/posts/all')
-        }
-    })
+    )
 }

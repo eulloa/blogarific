@@ -121,6 +121,10 @@ $siteFonts: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ub
     transition: all .25s linear;
 }
 
+.noshow {
+    display: none;
+}
+
 /* ==========================================================================
    forms
 ========================================================================== */
@@ -297,6 +301,10 @@ nav {
     h1 {
         text-transform: uppercase;
         margin-bottom: .25em;
+    }
+
+    span.likePost {
+        cursor: pointer;
     }
 
     p {
