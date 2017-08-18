@@ -1,15 +1,32 @@
 const Validation = require('../util/Validation')
 const Notifications = require('../util/Notifications')
+const Authentication = require('../util/Authentication')
 const Model = require('../models/Models')
 
-exports.ViewAllPosts = (req, res) => {
+exports.ViewAllPosts = (req, res, next) => {
     Model.PostModel.find({}).exec((error, result) => {
         if (error) {
             return Validation.FlashRedirect(req, res, '/posts', 'error', Notifications.GetNotification('error', 'postsNotFound'))
         } else {
+            let posts = result
             res.pageInfo.title = 'Posts'
-            res.pageInfo.posts = result
-            res.pageInfo.likes = result.likes
+            res.pageInfo.posts = []
+
+            if (Authentication.HasActiveUser) {
+                //don't let users like more than once
+                posts.forEach((post) => {
+                    post = post.toObject()
+    
+                    if (this.PostAlreadyLiked(post, req.session.username)) {
+                        post.alreadyLiked = true
+                    } else {
+                        post.alreadyLiked = false
+                    }
+
+                    res.pageInfo.posts.push(post)
+                })
+            }
+
             res.render('posts/ViewAllPosts', res.pageInfo)
         }
     })
@@ -146,4 +163,11 @@ exports.LikePost = (req, res) => {
             }
         }
     )
+}
+
+exports.PostAlreadyLiked = (post, userid) => {
+    if (post.likedBy.indexOf(userid) !== -1)
+        return true
+
+    return false
 }

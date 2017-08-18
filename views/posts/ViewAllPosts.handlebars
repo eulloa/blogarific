@@ -5,11 +5,11 @@
                 <h1>{{ title }}</h1>
                 <p>{{ content }}</p>
                 {{#if ../userInfo.username }}
-                    <span class="likePost" data-postid="{{_id}}">Like?</span>
+                    {{#unless alreadyLiked}}
+                        <span class="likePost" data-postid="{{_id}}">Like?</span>
+                    {{/unless}}
                 {{/if}}
-                {{#if likes}}
-                    <p class="likes">Likes: {{ likes }}</p>
-                {{/if}}
+                <p class="likes">Likes: {{ likes }}</p>
             </section>
             <section class="post-info">
                 <h2>{{#FormatDate date}}{{/FormatDate}}</h2>
