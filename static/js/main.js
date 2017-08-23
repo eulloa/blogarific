@@ -1,6 +1,11 @@
 $(function(){
+
+    $('header li.more').on('click', function() {
+        $(this).find('ul').toggleClass('show')
+        $(this).toggleClass('close')
+    })
    
-    $('span.likePost').on('click', function() {
+    $('span.likePost').on('click', () => {
         let postid = $(this).attr("data-postid")
         likePost($(this), postid)
     })

@@ -21,9 +21,11 @@ exports.GetNotification = (type, id) => {
         'postsNotFound': 'Oops! There was a problem retrieving posts, please try again!',
         'postNotSaved': 'Oops! There was a problem creating your post, please try again!',
         'postNotUpdated': 'Oops! There was a problem updating your post, please try again!',
+        'userFollowError': 'Oops! There was a problem following that user, please try again!',
         'userNotCreated': 'Oops! There was an error creating your account, please try again!',
         'userNotFound': 'This user was not found!',
-        'userPostsNotFound': 'Oops! There was an error retrieving your posts, please try again!'
+        'userPostsNotFound': 'Oops! There was an error retrieving your posts, please try again!',
+        'usersLookupError': 'Oops! There was a problem retrieving users, please try again!'
     }
 
     if (type === 'success') {

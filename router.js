@@ -17,6 +17,7 @@ module.exports = (app) => {
     //Users
     app.get('/users/add', csurfProtection, UserController.AddUser)
     app.post('/users/add', UserController.CreateUser)
+    app.get('/users/all', UserController.ShowAllUsers)
     app.get('/profile/', Authentication.IsUserLoggedIn, UserController.ShowUserProfile)
 
     //Posts

@@ -243,6 +243,7 @@ nav {
         -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
+        z-index: 1;
     }
 
     ul.user img {
@@ -256,34 +257,37 @@ nav {
 
     ul.user li.more {
         position: relative;
+        cursor: pointer;
     }
 
     ul.user li.more:after {
         content: "\25BE";
     }
-    
-    ul.user li:hover ul {
-        right: 0;
-        left: 0;
+
+    ul.user li.more.close:after {
+        content: "\25B4";
     }
     
     ul.user li ul {
         position: absolute;
         right: 1000em;
         background-color: $whitePrimary;
-        padding: .5em;
         border-radius: 3px;
         border: 1px solid $purplePrimary;
         width: 100%;
+        top: 1.5em;
+        z-index: 1;
+    }
+
+    ul.user li ul.show {
+        right: 0;
+        left: 0;
     }
     
     li ul li a {
         color: $black;
-        padding: 0 0 .5em 0;
-    }
-    
-    li ul li a:last-child {
-        padding-bottom: 0;
+        padding: .5em;
+        display: block;
     }
 }
 
@@ -303,13 +307,17 @@ nav {
         margin-bottom: .25em;
     }
 
+    h2 {
+        font-size: .9em;
+        margin-bottom: .5em;
+    }
+
     span.likePost {
         cursor: pointer;
     }
 
     p {
-        font-size: .9em;
-        margin-bottom: .5em;
+        font-size: .8em;
     }
 
     .post-content {
@@ -319,7 +327,7 @@ nav {
     .post-info {
         width: 20%;    
 
-        h2 {
+        h3 {
             font-size: .8em;
         }
 
@@ -334,6 +342,26 @@ nav {
     img {
         border-radius: 80px;
         margin-bottom: .5em;
+    }
+}
+
+.user-list {
+    img {
+        border-radius: 80px;
+    }
+
+    span {
+        float: right;
+    }
+
+    .user-info {
+        border-bottom: 1px solid #ccc;
+        padding: .75em;
+        position: relative;
+    }    
+
+    .user-info:last-child {
+        border-bottom: none;
     }
 }
 

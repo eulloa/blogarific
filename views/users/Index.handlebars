@@ -1,0 +1,11 @@
+<section class="user-list">
+    {{#users}}
+        <section class="user-info">
+            <h1>{{ email }}</h1>
+            <img src="{{#GetGravatar email}}{{/GetGravatar}}" />
+            {{#if ../userInfo.username }}
+                <span class="follow" data-username="{{email}}">Follow</span>
+            {{/if}}
+        </section>
+    {{/users}}
+</section>

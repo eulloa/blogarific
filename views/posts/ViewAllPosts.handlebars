@@ -3,7 +3,7 @@
         <section class="single-post">
             <section class="post-content">
                 <h1>{{ title }}</h1>
-                <p>{{ content }}</p>
+                <h2>{{ content }}</h2>
                 {{#if ../userInfo.username }}
                     {{#unless alreadyLiked}}
                         <span class="likePost" data-postid="{{_id}}">Like?</span>
@@ -12,9 +12,8 @@
                 <p class="likes">Likes: {{ likes }}</p>
             </section>
             <section class="post-info">
-                <h2>{{#FormatDate date}}{{/FormatDate}}</h2>
+                <h3>{{#FormatDate date}}{{/FormatDate}}</h3>
                 <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />
-                <p></p>
             </section>
         </section>
     {{else}}

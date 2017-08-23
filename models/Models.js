@@ -14,7 +14,8 @@ mongoose.connect(connectionString, {
 let UserSchema = mongoose.Schema({
     password: String,
     email: String,
-    followers: []
+    followers: [],
+    following: []
 })
 
 let PostSchema = mongoose.Schema({

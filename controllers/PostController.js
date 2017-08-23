@@ -8,22 +8,20 @@ exports.ViewAllPosts = (req, res, next) => {
         if (error) {
             return Validation.FlashRedirect(req, res, '/posts', 'error', Notifications.GetNotification('error', 'postsNotFound'))
         } else {
-            let posts = result
             res.pageInfo.title = 'Posts'
             res.pageInfo.posts = []
 
             if (Authentication.HasActiveUser) {
-                //don't let users like more than once
-                posts.forEach((post) => {
+                //if user is logged in, don't let them like a given post more than once
+                res.pageInfo.posts = result.map((post) => {
                     post = post.toObject()
-    
+                    post.alreadyLiked = false
+
                     if (this.PostAlreadyLiked(post, req.session.username)) {
                         post.alreadyLiked = true
-                    } else {
-                        post.alreadyLiked = false
                     }
 
-                    res.pageInfo.posts.push(post)
+                    return post
                 })
             }
 
