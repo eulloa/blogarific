@@ -6,14 +6,14 @@
                 <h2>{{ content }}</h2>
                 {{#if ../userInfo.username }}
                     {{#unless alreadyLiked}}
-                        <span class="likePost" data-postid="{{_id}}">Like?</span>
+                        <span class="likePost" data-postid="{{_id}}"></span>
                     {{/unless}}
                 {{/if}}
                 <p class="likes">Likes: {{ likes }}</p>
             </section>
             <section class="post-info">
-                <h3>{{#FormatDate date}}{{/FormatDate}}</h3>
                 <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />
+                <h3>{{#FormatDate date}}{{/FormatDate}}</h3>
             </section>
         </section>
     {{else}}

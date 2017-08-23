@@ -5,9 +5,17 @@ $(function(){
         $(this).toggleClass('close')
     })
    
-    $('span.likePost').on('click', () => {
+    $('span.likePost').on('click', function() {
         let postid = $(this).attr("data-postid")
         likePost($(this), postid)
+    })
+
+    $('span.follow').on('click', function() {
+        console.log($(this))
+    })
+
+    $('span.unfollow').on('click', function() {
+        console.log('unfollow')
     })
 
 });
@@ -26,7 +34,7 @@ likePost = (span, postid) => {
         xhrFields: { withCredentials: true },
         error: (e) => {
             console.log(e)
-        },
+        }
     }).then((res) => {
         updateLikes(span, res)
     })
@@ -35,6 +43,25 @@ likePost = (span, postid) => {
 updateLikes = (span, likes) => {
     span.next('p.likes').text("Likes: " + likes)
     span.fadeTo(250, 0, function(){
-        span.addClass('noshow')
+        span.css('display', 'none')
+    })
+}
+
+followUser = (span, followid) => {
+    let data = {
+        "id": followid
+    }
+
+    $.ajax({
+        url: '/posts/like/' + followid,
+        contentType: 'application/json;charset=UTF-8',
+        type: 'POST',
+        data: JSON.stringify(data),
+        xhrFields: { withCredentials: true },
+        error: (e) => {
+            console.log(e)
+        }
+    }).then((res) => {
+        
     })
 }
