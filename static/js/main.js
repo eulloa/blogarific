@@ -11,7 +11,8 @@ $(function(){
     })
 
     $('span.follow').on('click', function() {
-        console.log($(this))
+        let followid = $(this).attr("data-followid")
+        followUser(followid)
     })
 
     $('span.unfollow').on('click', function() {
@@ -47,13 +48,13 @@ updateLikes = (span, likes) => {
     })
 }
 
-followUser = (span, followid) => {
+followUser = (followid) => {
     let data = {
         "id": followid
     }
 
     $.ajax({
-        url: '/posts/like/' + followid,
+        url: '/users/follow/' + followid,
         contentType: 'application/json;charset=UTF-8',
         type: 'POST',
         data: JSON.stringify(data),
@@ -61,7 +62,5 @@ followUser = (span, followid) => {
         error: (e) => {
             console.log(e)
         }
-    }).then((res) => {
-        
     })
 }

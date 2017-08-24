@@ -9,9 +9,9 @@ exports.ViewAllPosts = (req, res, next) => {
             return Validation.FlashRedirect(req, res, '/posts', 'error', Notifications.GetNotification('error', 'postsNotFound'))
         } else {
             res.pageInfo.title = 'Posts'
-            res.pageInfo.posts = []
+            res.pageInfo.posts = Authentication.HasActiveUser(req, res, next) ? [] : result
 
-            if (Authentication.HasActiveUser) {
+            if (!res.pageInfo.posts.length) {
                 //if user is logged in, don't let them like a given post more than once
                 res.pageInfo.posts = result.map((post) => {
                     post = post.toObject()
@@ -150,7 +150,7 @@ exports.LikePost = (req, res) => {
         { _id: postId },
         {
             $inc: { likes: 1 },
-            $push: { likedBy: userid },
+            $push: { likedBy: userid }
         },
         { new: true },
         (error, result) => {

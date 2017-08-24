@@ -7,7 +7,7 @@ exports.IsUserLoggedIn = (req, res, next) => {
     return Validation.FlashRedirect(req, res, '/', 'error', 'You must be logged in to view this page')
 }
 
-exports.HasActiveUser = (req, res, next) => {
+exports.HasActiveUser = (req, res) => {
     if (req.session.userid)
         return true
 

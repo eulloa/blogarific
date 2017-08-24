@@ -2,6 +2,7 @@ const Validation = require('../util/Validation')
 const Notifications = require('../util/Notifications')
 const bcrypt = require('bcrypt-nodejs')
 const Model = require('../models/Models')
+const Authentication = require('../util/Authentication')
 
 exports.AddUser = (req, res) => {
     res.pageInfo.title = 'Sign Up'
@@ -68,7 +69,30 @@ exports.ShowAllUsers = (req, res) => {
             return Validation.FlashRedirect(req, res, '/users/all', 'error', Notifications.GetNotification('error', 'userFollowError'))
         } else {
             res.pageInfo.title = 'Users'
-            res.pageInfo.users = users
+            res.pageInfo.users = Authentication.HasActiveUser(req, res) ? [] : users
+
+            //if active user, determine whether to show follow or unfollow button
+            if (!res.pageInfo.users.length) {
+                //first get active user
+                let loggedInUser = Model.UserModel.findOne({ email: req.session.username }).exec((error, loggedInUser) => {
+                    if (error) {
+                        return Validation.FlashRedirect(req, res, '/', 'error', Notifications.GetNotification('error', 'usersLookupError'))
+                    }
+                }).then((loggedInUser) => {
+                    //determine if we're already following certain users
+                    users.forEach((user) => {
+                        user = user.toObject()
+                        user.alreadyFollowing = false
+
+                        if (this.AlreadyFollowing(loggedInUser, user.email)) {
+                            user.alreadyFollowing = true
+                        }
+
+                        res.pageInfo.users.push(user)
+                    })
+                })
+            }
+
             res.render('users/Index', res.pageInfo)
         }
     })
@@ -78,14 +102,16 @@ exports.FollowUser = (req, res) => {
     let followid = req.params.id
     let userid = req.session.username
 
-    Model.UserModel.findByIdAndUpdate(
-        { _id: userid },
-        { $push: { followers: followid } },
+    Model.UserModel.update(
+        { email: userid },
+        { 
+            $push: { following: followid } 
+        },
         (error, result) => {
             if (error) {
                 return Validation.FlashRedirect(req, res, '/profile', 'error', Notifications.GetNotification('error', 'userFollowError'))
             } else {
-                res.status(200)
+                res.status(200).end()
             }
         }
     )        
@@ -101,4 +127,11 @@ exports.GetFollowersList = (req, res) => {
 
 exports.GetFollowingList = (req, res) => {
     
+}
+
+exports.AlreadyFollowing = (loggedInUser, user) => {
+    if (loggedInUser.following.indexOf(user) !== -1)
+        return true
+
+    return false
 }

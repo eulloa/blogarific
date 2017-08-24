@@ -4,7 +4,12 @@
             <h1>{{ email }}</h1>
             <img src="{{#GetGravatar email}}{{/GetGravatar}}" />
             {{#if ../userInfo.username }}
-                <span class="follow" data-username="{{email}}">Follow</span>
+                {{#if alreadyFollowing}}
+                    <span class="unfollow" data-unfollowid="{{email}}">Unfollow</span>
+                {{/if}}
+                {{#unless alreadyFollowing}}
+                    <span class="follow" data-followid="{{email}}">Follow</span>
+                {{/unless}}
             {{/if}}
         </section>
     {{/users}}
