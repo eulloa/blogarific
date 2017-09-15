@@ -15,7 +15,8 @@ let UserSchema = mongoose.Schema({
     password: String,
     email: String,
     followers: [],
-    following: []
+    following: [],
+    signedUp: Date
 })
 
 let PostSchema = mongoose.Schema({

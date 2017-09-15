@@ -296,7 +296,7 @@ nav {
 
 .single-post {
   border-bottom: 1px solid #ccc;
-  padding: .75em;
+  padding: .75em 0;
   position: relative;
   display: flex; }
   .single-post:last-child {
@@ -311,10 +311,9 @@ nav {
     line-height: 1.5em; }
   .single-post span.likePost {
     cursor: pointer;
-    background: url(/img/thumbsup.png) 50% 50% no-repeat;
     background-size: cover;
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
     display: inline-block; }
   .single-post p {
     font-size: .8em; }

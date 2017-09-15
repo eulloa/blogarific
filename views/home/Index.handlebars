@@ -1,1 +1,30 @@
-<p>Welcome home!</p>
+<section class="latest-posts">
+    <h2>Latest Posts</h2>
+    {{#latestPosts}}
+        <section class="single-post">
+            <section class="post-content">
+                <h1>{{ title }}</h1>
+                <h2>{{ content }}</h2>
+            </section>
+            <section class="post-info">
+                <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />
+                <h3>{{#FormatDate date}}{{/FormatDate}}</h3>
+            </section>
+        </section>
+    {{/latestPosts}}
+</section>
+<section class="most-popular-posts">
+    <h2>Most Popular</h2>
+    {{#mostPopularPosts}}
+        <section class="single-post">
+            <section class="post-content">
+                <h1>{{ title }}</h1>
+                <h2>{{ content }}</h2>
+            </section>
+            <section class="post-info">
+                <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />
+                <h3>{{#FormatDate date}}{{/FormatDate}}</h3>
+            </section>
+        </section>
+    {{/mostPopularPosts}}
+</section>
