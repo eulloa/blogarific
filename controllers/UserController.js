@@ -37,7 +37,9 @@ exports.CreateUser = (req, res) => {
             let u = new Model.UserModel({
                 email: email,
                 password: passwordHash,
-                followers: []
+                followers: [],
+                following: [],
+                signedUp: new Date()
             })
 
             u.save((error) => {
@@ -56,9 +58,21 @@ exports.CreateUser = (req, res) => {
 }
 
 exports.ShowUserProfile = (req, res) => {
-    res.pageInfo.title = req.session.username
-    res.pageInfo.username = req.session.username
-    res.render('user/Profile', res.pageInfo)
+    Model.UserModel.findOne({ email: req.session.username }).exec((error, result) => {
+        if (error) {
+            return Validation.FlashRedirect(req, res, '/', 'error', Notifications.GetNotification('error', 'profileLookupError'));
+        } else {
+            res.pageInfo.title = 'User profile';
+            res.pageInfo.user = {
+                username: req.session.username,
+                signedUp: result.signedUp,
+                followers: result.followers.length,
+                following: result.following.length
+            };
+
+            res.render('user/Profile', res.pageInfo);
+        }
+    })
 }
 
 exports.ShowAllUsers = (req, res) => {
@@ -111,7 +125,18 @@ exports.FollowUser = (req, res) => {
             if (error) {
                 return Validation.FlashRedirect(req, res, '/profile', 'error', Notifications.GetNotification('error', 'userFollowError'))
             } else {
-                res.status(200).end()
+                Model.UserModel.findOneAndUpdate(
+                    { email: followid }, 
+                    { 
+                        $push: { followers: userid }
+                    },
+                    (error, result) => {
+                        if (error) {
+                            return Validation.FlashRedirect(req, res, '/', 'error', Notifications.GetNotification('error', 'genericError'));
+                        } else {
+                            res.status(200).end();
+                        }
+                });
             }
         }
     )        

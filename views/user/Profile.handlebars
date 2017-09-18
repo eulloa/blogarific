@@ -1,4 +1,7 @@
 <section class="profile">
     <img src="{{#GetGravatar userInfo.username}}{{/GetGravatar}}" />
-    <p>{{ username }}</p>
+    <p><span>Username</span> {{ user.username }}</p>
+    <p><span>Signed up</span> {{#FormatDate user.signedUp }}{{/FormatDate}}</p>
+    <p><span>Following</span> {{ user.following }} </p>
+    <p><span>Followers</span> {{ user.followers }} </p>
 </section>

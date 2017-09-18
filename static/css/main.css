@@ -311,7 +311,6 @@ nav {
     line-height: 1.5em; }
   .single-post span.likePost {
     cursor: pointer;
-    background-size: cover;
     height: 20px;
     width: 20px;
     display: inline-block; }
@@ -331,6 +330,14 @@ nav {
 
 .profile img {
   border-radius: 80px;
+  margin-bottom: .5em; }
+
+.profile p {
+  margin-bottom: .5em; }
+  .profile p span {
+    font-weight: 500; }
+
+.user-list h1 {
   margin-bottom: .5em; }
 
 .user-list img {

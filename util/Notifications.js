@@ -11,6 +11,7 @@ exports.GetNotification = (type, id) => {
     let error = {
         'allFieldsRequired': 'You must fill in all required fields!',
         'duplicateUser': 'Oops! This user already exists, please try again!',
+        'genericError': 'Oops! There was a problem, please try again!',
         'incorrectPassword': 'Oops! Check your password and try again!',
         'invalidEmailFormat': 'Please check the format of your email and try again!',
         'loginError': 'There was an error signing in, please try again!',
@@ -21,6 +22,7 @@ exports.GetNotification = (type, id) => {
         'postsNotFound': 'Oops! There was a problem retrieving posts, please try again!',
         'postNotSaved': 'Oops! There was a problem creating your post, please try again!',
         'postNotUpdated': 'Oops! There was a problem updating your post, please try again!',
+        'profileLookupError': 'Oops! There was a problem retrieving your profile, please try again!',
         'userFollowError': 'Oops! There was a problem following that user, please try again!',
         'userNotCreated': 'Oops! There was an error creating your account, please try again!',
         'userNotFound': 'This user was not found!',

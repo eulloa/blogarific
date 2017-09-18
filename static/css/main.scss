@@ -315,7 +315,6 @@ nav {
 
     span.likePost {
         cursor: pointer;
-        background-size: cover;
         height: 20px;
         width: 20px;
         display: inline-block;
@@ -350,9 +349,21 @@ nav {
         border-radius: 80px;
         margin-bottom: .5em;
     }
+
+    p {
+        margin-bottom: .5em;
+
+        span {
+            font-weight: 500;
+        }
+    }
 }
 
 .user-list {
+    h1 {
+        margin-bottom: .5em;
+    }
+
     img {
         border-radius: 80px;
     }
