@@ -235,57 +235,65 @@ main {
 
 nav {
   position: relative;
-  color: #fff; }
+  color: #fff;
+  padding: 0 .5em; }
   nav li a {
     color: #fff;
     text-decoration: none;
     display: inline-block; }
   nav ul.main {
     position: relative;
-    display: inline-block; }
-  nav ul.main a {
-    transition: all .25s linear;
-    padding: 1.25em .5em; }
-  nav ul.main a:hover {
-    color: #972B46;
-    background-color: #fafafb; }
-  nav ul.main li {
-    display: inline-block;
-    margin-right: .5em; }
-  nav ul.main li:last-child {
-    margin-right: 0; }
+    display: flex; }
+    nav ul.main li {
+      display: inline-block;
+      margin-right: .5em; }
+      nav ul.main li:last-child {
+        margin-right: 0; }
+    nav ul.main a {
+      transition: all .25s linear;
+      padding: 1.25em .5em; }
+      nav ul.main a.logo {
+        height: 100%;
+        width: 28px;
+        background: url(/img/logo.svg) 50% 50% no-repeat;
+        background-size: 100%; }
+        nav ul.main a.logo:hover {
+          background-color: #972B46; }
+      nav ul.main a:hover {
+        color: #972B46;
+        background-color: #fafafb; }
   nav ul.user {
     position: absolute;
-    right: 0;
+    right: .5em;
     display: inline-block;
     top: 50%;
     -webkit-transform: translateY(-50%);
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     z-index: 1; }
-  nav ul.user img {
-    width: 35px;
-    height: 35px;
-    position: absolute;
-    border-radius: 35px;
-    left: -42px;
-    top: -8px; }
-  nav ul.user li.more {
-    position: relative;
-    cursor: pointer; }
-  nav ul.user li.more:after {
-    content: "\25BE"; }
-  nav ul.user li.more.close:after {
-    content: "\25B4"; }
-  nav ul.user li ul {
-    position: absolute;
-    right: 1000em;
-    background-color: #fafafb;
-    border-radius: 3px;
-    border: 1px solid #972B46;
-    width: 100%;
-    top: 1.5em;
-    z-index: 1; }
+    nav ul.user img {
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      border-radius: 35px;
+      left: -42px;
+      top: -8px; }
+    nav ul.user li ul {
+      position: absolute;
+      right: 1000em;
+      background-color: #fafafb;
+      border-radius: 3px;
+      border: 1px solid #972B46;
+      width: 100%;
+      top: 1.5em;
+      z-index: 1; }
+    nav ul.user li.more {
+      position: relative;
+      cursor: pointer; }
+      nav ul.user li.more:after {
+        content: "\25BE"; }
+      nav ul.user li.more.close:after {
+        content: "\25B4"; }
   nav ul.user li ul.show {
     right: 0;
     left: 0; }
@@ -294,39 +302,45 @@ nav {
     padding: .5em;
     display: block; }
 
-.single-post {
+.post {
   border-bottom: 1px solid #ccc;
   padding: .75em 0;
   position: relative;
   display: flex; }
-  .single-post:last-child {
+  .post:last-child {
     margin-bottom: 0;
     border-bottom: 0; }
-  .single-post h1 {
-    text-transform: uppercase;
+  .post h1 {
+    font-weight: 500;
     margin-bottom: .25em; }
-  .single-post h2 {
+  .post h2 {
     font-size: .9em;
     margin-bottom: 1.5em;
     line-height: 1.5em; }
-  .single-post span.likePost {
+  .post span.likePost {
     cursor: pointer;
     height: 20px;
     width: 20px;
     display: inline-block; }
-  .single-post p {
+  .post p {
     font-size: .8em; }
-  .single-post .post-content {
+  .post .post-content {
     width: 80%; }
-  .single-post .post-info {
+  .post .post-info {
     width: 20%; }
-    .single-post .post-info h3 {
+    .post .post-info h3 {
       font-size: .8em;
       display: inline-block;
       margin-left: 1em; }
-    .single-post .post-info img {
+    .post .post-info img {
       width: 24px;
       height: 24px; }
+
+.single-post {
+  display: block; }
+  .single-post h1 {
+    font-weight: 500;
+    margin-bottom: .25em; }
 
 .profile img {
   border-radius: 80px;
@@ -341,7 +355,8 @@ nav {
   margin-bottom: .5em; }
 
 .user-list img {
-  border-radius: 80px; }
+  border-radius: 40px;
+  width: 40px; }
 
 .user-list span {
   float: right; }

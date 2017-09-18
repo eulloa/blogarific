@@ -204,6 +204,7 @@ main {
 nav {
     position: relative;
     color: $white;
+    padding: 0 .5em;
 
     li a {
         color: $white;
@@ -213,70 +214,81 @@ nav {
 
     ul.main {
         position: relative;
-        display: inline-block;   
-    }
+        display: flex;   
 
-    ul.main a {
-        transition: all .25s linear;
-        padding: 1.25em .5em;
-    }
+        li {
+            display: inline-block;
+            margin-right: .5em;
 
-    ul.main a:hover {
-        color: $purplePrimary;
-        background-color: $whitePrimary;
-    }
+            &:last-child {
+                margin-right: 0;
+            }
+        }
+        
+        a {
+            transition: all .25s linear;
+            padding: 1.25em .5em;
 
-    ul.main li {
-        display: inline-block;
-        margin-right: .5em;
-    }
+            &.logo {
+                height: 100%;
+                width: 28px;
+                background: url(/img/logo.svg) 50% 50% no-repeat;
+                background-size: 100%;
 
-    ul.main li:last-child {
-        margin-right: 0;
-    }
+                &:hover {
+                    background-color: $purplePrimary;
+                }
+            }
+
+            &:hover {
+                color: $purplePrimary;
+                background-color: $whitePrimary;
+            }
+        }
+    } 
 
     ul.user {
         position: absolute;
-        right: 0;
+        right: .5em;
         display: inline-block;
         top: 50%;
         -webkit-transform: translateY(-50%);
         -ms-transform: translateY(-50%);
         transform: translateY(-50%);
         z-index: 1;
-    }
 
-    ul.user img {
-        width: 35px;
-        height: 35px;
-        position: absolute;
-        border-radius: 35px;
-        left: -42px;
-        top: -8px;
-    }
+        img {
+            width: 35px;
+            height: 35px;
+            position: absolute;
+            border-radius: 35px;
+            left: -42px;
+            top: -8px;
+        }
 
-    ul.user li.more {
-        position: relative;
-        cursor: pointer;
-    }
+        li ul {
+            position: absolute;
+            right: 1000em;
+            background-color: $whitePrimary;
+            border-radius: 3px;
+            border: 1px solid $purplePrimary;
+            width: 100%;
+            top: 1.5em;
+            z-index: 1;
+        }
 
-    ul.user li.more:after {
-        content: "\25BE";
-    }
+        li.more {
+            position: relative;
+            cursor: pointer;
 
-    ul.user li.more.close:after {
-        content: "\25B4";
-    }
-    
-    ul.user li ul {
-        position: absolute;
-        right: 1000em;
-        background-color: $whitePrimary;
-        border-radius: 3px;
-        border: 1px solid $purplePrimary;
-        width: 100%;
-        top: 1.5em;
-        z-index: 1;
+            &:after {
+                content: "\25BE";
+            }
+
+            &.close:after {
+                content: "\25B4";
+            }
+        }
     }
 
     ul.user li ul.show {
@@ -291,7 +303,7 @@ nav {
     }
 }
 
-.single-post {
+.post {
     border-bottom: 1px solid $lightGray;
     padding: .75em 0;
     position: relative;
@@ -303,7 +315,7 @@ nav {
     }
 
     h1 {
-        text-transform: uppercase;
+        font-weight: 500;
         margin-bottom: .25em;
     }
 
@@ -344,6 +356,15 @@ nav {
     }
 }
 
+.single-post {
+    h1 {
+        font-weight: 500;
+        margin-bottom: .25em;
+    }
+
+    display: block;
+}
+
 .profile {
     img {
         border-radius: 80px;
@@ -365,7 +386,8 @@ nav {
     }
 
     img {
-        border-radius: 80px;
+        border-radius: 40px;
+        width: 40px;
     }
 
     span {
@@ -373,7 +395,7 @@ nav {
     }
 
     .user-info {
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid $lightGray;
         padding: .75em;
         position: relative;
     }    
