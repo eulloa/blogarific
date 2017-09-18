@@ -43,7 +43,7 @@ $cream: #FFDDBC;
 $greenPrimary: #4C644F;
 $greenSecondary: #C7D89B;
 $deepRed: #7A122E;
-$lightGray: #ccc;
+$lightGray: #ddd;
 $grayDark: #777;
 
 /* fonts */
@@ -125,6 +125,16 @@ $siteFonts: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ub
     display: none;
 }
 
+.sectionStyle {
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 2px 3px rgba(0,0,0,.2);
+    padding: 1em;
+    background-color: $white;
+}
+
+.formStyle {
+    box-shadow: 0 0 0 1px rgba(0,0,0,.1), 0 2px 3px rgba(0,0,0,.2);
+}
+
 /* ==========================================================================
    forms
 ========================================================================== */
@@ -135,6 +145,7 @@ form {
     background-color: $bluePrimary;
     padding: 1em;
     color: $white;
+    @extend .formStyle;
 
     fieldset {
         margin-bottom: .5em;
@@ -187,6 +198,7 @@ form {
 
 body {
     font-family: $siteFonts;
+    background-color: $lightGray;
 }
 
 header {
@@ -303,6 +315,10 @@ nav {
     }
 }
 
+.posts {
+    @extend .sectionStyle;
+}
+
 .post {
     border-bottom: 1px solid $lightGray;
     padding: .75em 0;
@@ -345,18 +361,33 @@ nav {
 
         h3 {
             font-size: .8em;
-            display: inline-block;
-            margin-left: 1em;
+            position: absolute;
+            padding: .5em;
+            top: 1em;
+            right: 1em;
+            background-color: $bluePrimary;
+            color: $white;
         }
 
         img {
-            width: 24px;
-            height: 24px;
+            width: 35px;
+            height: 35px;
         }
     }
 }
 
+.latest-posts {
+    @extend .sectionStyle;
+    margin-bottom: 1em;
+}
+
+.popular-posts {
+    @extend .sectionStyle;
+}
+
 .single-post {
+    @extend .sectionStyle;
+
     h1 {
         font-weight: 500;
         margin-bottom: .25em;
@@ -366,6 +397,8 @@ nav {
 }
 
 .profile {
+    @extend .sectionStyle;
+
     img {
         border-radius: 80px;
         margin-bottom: .5em;
@@ -381,6 +414,8 @@ nav {
 }
 
 .user-list {
+    @extend .sectionStyle;
+
     h1 {
         margin-bottom: .5em;
     }
