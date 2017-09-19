@@ -103,6 +103,10 @@ $siteFonts: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ub
     margin: .5em 0;
     font-size: .85em;
     cursor: pointer;
+
+    &.small {
+        font-size: .7em;
+    }
 }
 
 .btn.delete {
@@ -140,12 +144,14 @@ $siteFonts: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ub
 ========================================================================== */
 
 form {
-    width: 500px;
-    margin: 0 auto;
-    background-color: $bluePrimary;
-    padding: 1em;
-    color: $white;
-    @extend .formStyle;
+    &.primary {
+        width: 500px;
+        margin: 0 auto;
+        background-color: $bluePrimary;
+        padding: 1em;
+        color: $white;
+        @extend .formStyle;
+    }
 
     fieldset {
         margin-bottom: .5em;
@@ -317,6 +323,27 @@ nav {
 
 .posts {
     @extend .sectionStyle;
+
+    .comments {
+        margin-top: .5em;
+
+        span {
+            background: url(/img/comment.svg) 50% 50% no-repeat;
+            background-size: contain;
+            cursor: pointer;
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+        }
+
+        form {
+            margin-top: .5em;
+
+            input[type=text] {
+                border: 1px solid $lightGray;
+            }
+        }
+    }
 }
 
 .post {
@@ -360,11 +387,11 @@ nav {
         width: 20%;    
 
         h3 {
-            font-size: .8em;
+            font-size: .75em;
             position: absolute;
             padding: .5em;
             top: 1em;
-            right: 1em;
+            right: 0;
             background-color: $bluePrimary;
             color: $white;
         }
@@ -372,6 +399,9 @@ nav {
         img {
             width: 35px;
             height: 35px;
+            position: absolute;
+            top: 45px;
+            right: 0;
         }
     }
 }
@@ -379,10 +409,26 @@ nav {
 .latest-posts {
     @extend .sectionStyle;
     margin-bottom: 1em;
+
+    h3 {
+        text-transform: uppercase;
+        background-color: $greenPrimary;
+        color: $white;
+        padding: .5em;
+        display: inline-block;
+    }
 }
 
 .popular-posts {
     @extend .sectionStyle;
+
+    h3 {
+        text-transform: uppercase;
+        background-color: $greenPrimary;
+        color: $white;
+        padding: .5em;
+        display: inline-block;
+    }
 }
 
 .single-post {
@@ -438,6 +484,10 @@ nav {
     .user-info:last-child {
         border-bottom: none;
     }
+}
+
+.notfound {
+    @extend .sectionStyle;
 }
 
 footer {

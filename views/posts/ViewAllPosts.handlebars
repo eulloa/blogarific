@@ -10,6 +10,16 @@
                     {{/unless}}
                 {{/if}}
                 <p class="likes">Likes: {{ likes }}</p>
+                <div class="comments">
+                    <span></span>
+                    <form class="noshow" method="post" action="">
+                        <input type="text" placeholder="Add a comment..." name="comment" autofocus />
+                        <input class="btn small" type="submit" value="Submit" />
+                    </form>
+                </div>
+                {{#comments}}
+                    <p>{{ comment }}</p>
+                {{/comments}}
             </section>
             <section class="post-info">
                 <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />

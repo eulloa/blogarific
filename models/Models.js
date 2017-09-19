@@ -26,13 +26,13 @@ let PostSchema = mongoose.Schema({
     content: String,
     likes: Number,
     likedBy: [String],
-    comments: { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }]
 })
 
 let CommentSchema = mongoose.Schema({
     userId: String,
-    likes: Number,
-    dislikes: Number
+    comment: String,
+    date: Date
 })
 
 let UserModel = mongoose.model('User', UserSchema)

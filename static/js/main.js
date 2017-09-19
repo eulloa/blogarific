@@ -19,6 +19,10 @@ $(function(){
         console.log('unfollow')
     })
 
+    //comments
+    $('.comments span').on('click', function() {
+        $(this).parents('.comments').find('form').toggleClass('noshow');
+    });
 });
 
 likePost = (span, postid) => {
