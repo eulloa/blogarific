@@ -44,7 +44,13 @@ $greenPrimary: #4C644F;
 $greenSecondary: #C7D89B;
 $deepRed: #7A122E;
 $lightGray: #ddd;
+$extraLightGray: #eee;
 $grayDark: #777;
+
+/* font sizes */
+$normal: 1em;
+$small: .9em;
+$extraSmall: .8em;
 
 /* fonts */
 $siteFonts: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen-Sans, Ubunutu, Cantarell, Helvetica, Neue, sans-serif;
@@ -324,10 +330,10 @@ nav {
 .posts {
     @extend .sectionStyle;
 
-    .comments {
-        margin-top: .5em;
+    .comments-form {
+        margin: .5em 0;
 
-        span {
+        i {
             background: url(/img/comment.svg) 50% 50% no-repeat;
             background-size: contain;
             cursor: pointer;
@@ -368,14 +374,43 @@ nav {
         line-height: 1.5em;
     }
 
-    span.likePost {
+    span.like-post {
         cursor: pointer;
         height: 20px;
         width: 20px;
         display: inline-block;
+        margin-bottom: .5em;
+    }
+
+    p.likes {
+        margin-bottom: .5em;
+
+        span {
+            color: $deepRed;
+        }
     }
 
     p {
+        font-size: .8em;
+    }
+
+    ul.comments {
+        background-color: $extraLightGray;
+        padding: 1em;
+        font-size: $extraSmall;
+        margin-top: .5em;
+
+        li {
+            margin-bottom: .5em;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    span.view-comments, span.hide-comments {
+        cursor: pointer;
         font-size: .8em;
     }
 

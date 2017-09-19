@@ -4,7 +4,7 @@ const Authentication = require('../util/Authentication')
 const Model = require('../models/Models')
 
 exports.ViewAllPosts = (req, res, next) => {
-    Model.PostModel.find({}).exec((error, result) => {
+    Model.PostModel.find({}).populate('comments').exec((error, result) => {
         if (error) {
             return Validation.FlashRedirect(req, res, '/posts', 'error', Notifications.GetNotification('error', 'postsNotFound'))
         } else {
@@ -82,7 +82,7 @@ exports.CreatePost = (req, res) => {
         date: new Date(),
         content: content,
         likes: 0,
-        comments: null,
+        comments: [],
         likedBy: []
     })
 
@@ -168,4 +168,40 @@ exports.PostAlreadyLiked = (post, userid) => {
         return true
 
     return false
+}
+
+exports.AddComment = (req, res) => {
+    let commentBody = req.body.comment;
+    let postid = req.params.id;
+
+    if (Validation.IsNullOrEmpty(commentBody)) {
+        return Validation.FlashRedirect(req, res, '/posts/all', 'error', Notifications.GetNotification('error', 'emptyComment'));
+    }
+
+    let newComment = new Model.CommentModel({
+        userId: req.session.username,
+        comment: commentBody,
+        date: new Date()
+    });
+
+    newComment.save((error) => {
+        if (error) {
+            res.send(400, 'Error saving comment, try again later.');
+        }
+    }).then((comment) => {
+        Model.PostModel.findByIdAndUpdate(
+            postid,
+            {
+                $push: { comments: newComment }
+            },
+            { new: true },
+            (error, result) => {
+                if (error) {
+                    return Validation.FlashRedirect(req, res, '/posts/all', 'error', Notifications.GetNotification('error', 'commentError'));
+                } else {
+                    res.status(200).json(result.comments);
+                }
+            }
+        );
+    })
 }

@@ -6,20 +6,29 @@
                 <h2>{{ content }}</h2>
                 {{#if ../userInfo.username }}
                     {{#unless alreadyLiked}}
-                        <span class="likePost" data-postid="{{_id}}">&#128077;</span>
+                        <span class="like-post" data-postid="{{_id}}">&#128077;</span>
                     {{/unless}}
                 {{/if}}
-                <p class="likes">Likes: {{ likes }}</p>
-                <div class="comments">
-                    <span></span>
-                    <form class="noshow" method="post" action="">
-                        <input type="text" placeholder="Add a comment..." name="comment" autofocus />
-                        <input class="btn small" type="submit" value="Submit" />
-                    </form>
-                </div>
-                {{#comments}}
-                    <p>{{ comment }}</p>
-                {{/comments}}
+                <p class="likes"><span>&#9829;</span> <b>{{ likes }}</b></p>
+                {{#if ../userInfo.username }}
+                    <div class="comments-form">
+                        <i></i>
+                        <form class="noshow" method="post" action="/posts/comment/{{_id}}">
+                            <input type="text" placeholder="Add a comment..." name="comment" autofocus />
+                            <input type="hidden" name="postid" value="{{_id}}" />
+                            <input class="btn small" type="submit" value="Submit" />
+                        </form>
+                    </div>
+                {{/if}}
+                {{#if comments}}
+                    <span class="view-comments">{{#GetArrayLength comments}}{{/GetArrayLength}}</span>
+                    <span class="hide-comments noshow">Hide comments</span>
+                    <ul class="comments noshow">
+                        {{#comments}}
+                            <li>{{ comment }} - {{#FormatDate date}}{{/FormatDate}}</li>
+                        {{/comments}}
+                    </ul>
+                {{/if}}
             </section>
             <section class="post-info">
                 <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />

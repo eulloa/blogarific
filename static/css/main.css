@@ -99,6 +99,7 @@ button::-moz-focus-inner {
    variables
 ========================================================================== */
 /* colors */
+/* font sizes */
 /* fonts */
 /* ==========================================================================
    Helpers
@@ -321,18 +322,18 @@ nav {
     padding: .5em;
     display: block; }
 
-.posts .comments {
-  margin-top: .5em; }
-  .posts .comments span {
+.posts .comments-form {
+  margin: .5em 0; }
+  .posts .comments-form i {
     background: url(/img/comment.svg) 50% 50% no-repeat;
     background-size: contain;
     cursor: pointer;
     height: 20px;
     width: 20px;
     display: inline-block; }
-  .posts .comments form {
+  .posts .comments-form form {
     margin-top: .5em; }
-    .posts .comments form input[type=text] {
+    .posts .comments-form form input[type=text] {
       border: 1px solid #ddd; }
 
 .post {
@@ -350,12 +351,29 @@ nav {
     font-size: .9em;
     margin-bottom: 1.5em;
     line-height: 1.5em; }
-  .post span.likePost {
+  .post span.like-post {
     cursor: pointer;
     height: 20px;
     width: 20px;
-    display: inline-block; }
+    display: inline-block;
+    margin-bottom: .5em; }
+  .post p.likes {
+    margin-bottom: .5em; }
+    .post p.likes span {
+      color: #7A122E; }
   .post p {
+    font-size: .8em; }
+  .post ul.comments {
+    background-color: #eee;
+    padding: 1em;
+    font-size: 0.8em;
+    margin-top: .5em; }
+    .post ul.comments li {
+      margin-bottom: .5em; }
+      .post ul.comments li:last-child {
+        margin-bottom: 0; }
+  .post span.view-comments, .post span.hide-comments {
+    cursor: pointer;
     font-size: .8em; }
   .post .post-content {
     width: 80%; }

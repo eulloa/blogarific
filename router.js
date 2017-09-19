@@ -31,6 +31,7 @@ module.exports = (app) => {
     app.get('/posts/edit/:id', Authentication.IsUserLoggedIn, PostController.EditPost)
     app.post('/posts/edit', Authentication.IsUserLoggedIn, PostController.UpdatePost)
     app.post('/posts/like/:id', Authentication.IsUserLoggedIn, PostController.LikePost)
+    app.post('/posts/comment/:id', Authentication.IsUserLoggedIn, PostController.AddComment)
 
     //404
     app.use((req, res, next) => {

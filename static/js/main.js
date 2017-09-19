@@ -5,7 +5,7 @@ $(function(){
         $(this).toggleClass('close')
     })
    
-    $('span.likePost').on('click', function() {
+    $('span.like-post').on('click', function() {
         let postid = $(this).attr("data-postid")
         likePost($(this), postid)
     })
@@ -20,8 +20,46 @@ $(function(){
     })
 
     //comments
-    $('.comments span').on('click', function() {
-        $(this).parents('.comments').find('form').toggleClass('noshow');
+    $('.comments-form i').on('click', function() {
+        $(this).parent().find('form').toggleClass('noshow');
+    });
+
+    $('.comments-form form').on('submit', function(e) {
+        e.preventDefault();
+
+        let comment = $(this).find('input[name=comment]').val();
+
+        let data = {
+            "comment": comment
+        }
+
+        let postid = $(this).find('input[name=postid]').val();
+
+        $.ajax({
+            url: '/posts/comment/' + postid,
+            dataType: 'json',
+            contentType: 'application/json;charset=UTF-8',
+            type: 'POST',
+            data: JSON.stringify(data),
+            xhrFields: { withCredentials: true },
+            error: (e) => {
+                console.log(e);
+            }
+        }).then((res) => {
+            console.log(res);
+        });
+    });
+
+    $('.view-comments').on('click', function() {
+        $('ul.comments').removeClass('noshow');
+        $('span.hide-comments').removeClass('noshow');
+        $(this).addClass('noshow');
+    });
+
+    $('.hide-comments').on('click', function() {
+        $('ul.comments').addClass('noshow');
+        $('span.view-comments').removeClass('noshow');
+        $(this).addClass('noshow');
     });
 });
 
@@ -46,10 +84,10 @@ likePost = (span, postid) => {
 }
 
 updateLikes = (span, likes) => {
-    span.next('p.likes').text("Likes: " + likes)
+    span.parents('.post-content').find('p.likes b').text(likes);
     span.fadeTo(250, 0, function(){
-        span.css('display', 'none')
-    })
+        span.css('display', 'none');
+    });
 }
 
 followUser = (followid) => {

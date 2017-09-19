@@ -10,6 +10,8 @@ exports.GetNotification = (type, id) => {
 
     let error = {
         'allFieldsRequired': 'You must fill in all required fields!',
+        'commentError': 'Oops! There was an error adding your comment, please try again!',
+        'emptyComment': 'Oops! Comments cannot be empty!',
         'duplicateUser': 'Oops! This user already exists, please try again!',
         'genericError': 'Oops! There was a problem, please try again!',
         'incorrectPassword': 'Oops! Check your password and try again!',
