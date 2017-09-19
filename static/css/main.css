@@ -335,6 +335,8 @@ nav {
     margin-top: .5em; }
     .posts .comments-form form input[type=text] {
       border: 1px solid #ddd; }
+      .posts .comments-form form input[type=text].error {
+        border: 1px solid red; }
 
 .post {
   border-bottom: 1px solid #ddd;
@@ -370,6 +372,8 @@ nav {
     margin-top: .5em; }
     .post ul.comments li {
       margin-bottom: .5em; }
+      .post ul.comments li span {
+        font-weight: 500; }
       .post ul.comments li:last-child {
         margin-bottom: 0; }
   .post span.view-comments, .post span.hide-comments {

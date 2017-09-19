@@ -27,6 +27,11 @@ $(function(){
     $('.comments-form form').on('submit', function(e) {
         e.preventDefault();
 
+        if (!isValidForm($(this)))
+            return;
+
+        let postSection = $(this).parents('.post-content');
+
         let comment = $(this).find('input[name=comment]').val();
 
         let data = {
@@ -46,19 +51,23 @@ $(function(){
                 console.log(e);
             }
         }).then((res) => {
-            console.log(res);
+            resetForm(postSection);
+            updateCommentCount(postSection);
+            postSection.find('ul.comments').removeClass('noshow').append(createComment(res));
         });
     });
 
     $('.view-comments').on('click', function() {
-        $('ul.comments').removeClass('noshow');
-        $('span.hide-comments').removeClass('noshow');
+        let parent = $(this).parents('.post-content');
+        parent.find('ul.comments').removeClass('noshow');
+        parent.find('span.hide-comments').removeClass('noshow');
         $(this).addClass('noshow');
     });
 
     $('.hide-comments').on('click', function() {
-        $('ul.comments').addClass('noshow');
-        $('span.view-comments').removeClass('noshow');
+        let parent = $(this).parents('.post-content');
+        parent.find('ul.comments').addClass('noshow');
+        parent.find('span.view-comments').removeClass('noshow');
         $(this).addClass('noshow');
     });
 });
@@ -105,4 +114,37 @@ followUser = (followid) => {
             console.log(e)
         }
     })
+}
+
+createComment = (comment) => {
+    let commentBody = comment.comment;
+    let date = formatDate(comment.date);
+    return $('<li>', { text: commentBody + ' - ' + date });
+}
+
+formatDate = (date) => {
+    return new Date(date).toDateString();
+}
+
+resetForm = (postSection) => {
+    postSection.find('form')[0].reset();
+    postSection.find('i').trigger('click');
+}
+
+updateCommentCount = (postSection) => {
+    let num =  parseInt(postSection.find('span.num-of-comments').text()) + 1;
+    postSection.find('span.num-of-comments').text(num);
+}
+
+isValidForm = (form) => {
+    let isValid = true;
+
+    form.find('input[type=text]').each(function(){
+        if ($(this)[0].value === '') {
+            isValid = false;
+            $(this)[0].classList.add('error');
+        }
+    });
+
+    return isValid;
 }

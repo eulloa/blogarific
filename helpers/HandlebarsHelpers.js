@@ -9,5 +9,9 @@ exports.FormatDate = (date) => {
 }
 
 exports.GetArrayLength = (array) => {
-    return array.length === 1 ? 'View ' + array.length + ' comment' : 'View ' + array.length + ' comments';
+    return array.length;
+}
+
+exports.FormatMessage = (array) => {
+    return array.length === 1 ? 'comment' : 'comments';
 }

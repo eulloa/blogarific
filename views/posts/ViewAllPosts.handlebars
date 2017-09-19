@@ -21,14 +21,14 @@
                     </div>
                 {{/if}}
                 {{#if comments}}
-                    <span class="view-comments">{{#GetArrayLength comments}}{{/GetArrayLength}}</span>
+                    <span class="view-comments">View <span class="num-of-comments">{{#GetArrayLength comments}}{{/GetArrayLength}}</span> {{#FormatMessage comments}}{{/FormatMessage}}</span>
                     <span class="hide-comments noshow">Hide comments</span>
-                    <ul class="comments noshow">
-                        {{#comments}}
-                            <li>{{ comment }} - {{#FormatDate date}}{{/FormatDate}}</li>
-                        {{/comments}}
-                    </ul>
                 {{/if}}
+                <ul class="comments noshow">
+                    {{#comments}}
+                        <li><span>{{ comment }}</span> - {{#FormatDate date}}{{/FormatDate}}</li>
+                    {{/comments}}
+                </ul>
             </section>
             <section class="post-info">
                 <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />

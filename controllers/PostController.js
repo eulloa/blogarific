@@ -199,7 +199,7 @@ exports.AddComment = (req, res) => {
                 if (error) {
                     return Validation.FlashRedirect(req, res, '/posts/all', 'error', Notifications.GetNotification('error', 'commentError'));
                 } else {
-                    res.status(200).json(result.comments);
+                    res.status(200).json(newComment);
                 }
             }
         );
