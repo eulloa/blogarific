@@ -1,15 +1,18 @@
 <section class="user-list">
     {{#users}}
         <section class="user-info">
-            <h1>{{ email }}</h1>
             <img src="{{#GetGravatar email}}{{/GetGravatar}}" />
+            <h1>{{ email }}</h1>
             {{#if ../userInfo.username }}
-                {{#if alreadyFollowing}}
-                    <span class="unfollow" data-unfollowid="{{email}}">Unfollow</span>
-                {{/if}}
-                {{#unless alreadyFollowing}}
-                    <span class="follow" data-followid="{{email}}">Follow</span>
-                {{/unless}}
+                <div class="follow-container">
+                    {{#if alreadyFollowing}}
+                        <span class="unfollow btn on" data-id="{{email}}">Unfollow</span>
+                        <span class="follow btn" data-id="{{email}}">Follow</span>    
+                    {{else}}
+                        <span class="unfollow btn" data-id="{{email}}">Unfollow</span>
+                        <span class="follow btn on" data-id="{{email}}">Follow</span>
+                    {{/if}}
+                </div>
             {{/if}}
         </section>
     {{/users}}

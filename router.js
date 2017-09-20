@@ -19,6 +19,7 @@ module.exports = (app) => {
     app.post('/users/add', UserController.CreateUser)
     app.get('/users/all', UserController.ShowAllUsers)
     app.post('/users/follow/:id', Authentication.IsUserLoggedIn, UserController.FollowUser)
+    app.post('/users/unfollow/:id', Authentication.IsUserLoggedIn, UserController.UnfollowUser)
     app.get('/profile/', Authentication.IsUserLoggedIn, UserController.ShowUserProfile)
 
     //Posts

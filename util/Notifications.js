@@ -26,6 +26,7 @@ exports.GetNotification = (type, id) => {
         'postNotUpdated': 'Oops! There was a problem updating your post, please try again!',
         'profileLookupError': 'Oops! There was a problem retrieving your profile, please try again!',
         'userFollowError': 'Oops! There was a problem following that user, please try again!',
+        'userUnfollowError': 'Oops! There was a problem unfollowing that user, please try again!',
         'userNotCreated': 'Oops! There was an error creating your account, please try again!',
         'userNotFound': 'This user was not found!',
         'userPostsNotFound': 'Oops! There was an error retrieving your posts, please try again!',

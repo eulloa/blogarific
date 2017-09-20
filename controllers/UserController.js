@@ -143,7 +143,34 @@ exports.FollowUser = (req, res) => {
 }
 
 exports.UnfollowUser = (req, res) => {
+    let unfollowid = req.params.id;
+    let userid = req.session.username;
     
+    Model.UserModel.update(
+        { email: userid },
+        {
+            $pull: { following: unfollowid }
+        },
+        (error, result) => {
+            if (error) {
+                return Validation.FlashRedirect(req, res, '/users/all', 'error', Notifications.GetNotification('error', 'userUnfollowError'));
+            } else {
+                Model.UserModel.findOneAndUpdate(
+                    { email: unfollowid },
+                    {
+                        $pull: { followers: userid }
+                    },
+                    (error, result) => {
+                        if (error) {
+                            return Validation.FlashRedirect(req, res, '/users/all', 'error', Notifications.GetNotification('error', 'userUnfollowError'));
+                        } else {
+                            res.status(200).end();
+                        }        
+                    }
+                );
+            }
+        }
+    )
 }
 
 exports.GetFollowersList = (req, res) => {

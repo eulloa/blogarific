@@ -167,6 +167,12 @@ button::-moz-focus-inner {
   .btn.small {
     font-size: .7em; }
 
+.btn.follow {
+  background-color: #C7D89B; }
+
+.btn.unfollow {
+  background-color: #7A122E; }
+
 .btn.delete {
   background-color: #7A122E; }
 
@@ -429,20 +435,23 @@ nav {
   .profile p span {
     font-weight: 500; }
 
-.user-list h1 {
-  margin-bottom: .5em; }
-
-.user-list img {
-  border-radius: 40px;
-  width: 40px; }
-
-.user-list span {
-  float: right; }
-
 .user-list .user-info {
   border-bottom: 1px solid #ddd;
   padding: .75em;
   position: relative; }
+  .user-list .user-info h1 {
+    margin-bottom: .5em;
+    display: inline-block; }
+  .user-list .user-info img {
+    border-radius: 40px;
+    width: 40px;
+    margin-right: .5em; }
+  .user-list .user-info .follow-container {
+    float: right; }
+    .user-list .user-info .follow-container span {
+      display: none; }
+      .user-list .user-info .follow-container span.on {
+        display: inline-block; }
 
 .user-list .user-info:last-child {
   border-bottom: none; }
