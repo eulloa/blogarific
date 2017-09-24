@@ -15,3 +15,7 @@ exports.GetArrayLength = (array) => {
 exports.FormatMessage = (array) => {
     return array.length === 1 ? 'comment' : 'comments';
 }
+
+exports.IsSelected = (a, b) => {
+    return a === b ? 'active': '';
+}

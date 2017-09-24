@@ -250,7 +250,10 @@ nav {
 
         li {
             display: inline-block;
-            margin-right: .5em;
+            
+            &:first-child {
+                margin-right: .5em;
+            }
 
             &:last-child {
                 margin-right: 0;
@@ -259,7 +262,12 @@ nav {
         
         a {
             transition: all .25s linear;
-            padding: 1.25em .5em;
+            padding: 1.25em .75em;
+
+            &.active {
+                color: $purplePrimary;
+                background-color: $whitePrimary;
+            }
 
             &.logo {
                 height: 100%;

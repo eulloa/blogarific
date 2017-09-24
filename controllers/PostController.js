@@ -56,7 +56,7 @@ exports.ViewUserPosts = (req, res) => {
         if (error) {
             return Validation.FlashRedirect(req, res, '/posts', 'error', Notifications.GetNotification('error', 'userPostsNotFound'))
         } else {
-            res.pageInfo.title = 'Posts'
+            res.pageInfo.title = 'My Posts'
             res.pageInfo.posts = result
             res.render('posts/ViewUserPosts', res.pageInfo)
         }

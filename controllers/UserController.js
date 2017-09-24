@@ -5,7 +5,7 @@ const Model = require('../models/Models')
 const Authentication = require('../util/Authentication')
 
 exports.AddUser = (req, res) => {
-    res.pageInfo.title = 'Sign Up'
+    res.pageInfo.title = 'Login'
     res.pageInfo.csrfToken = req.csrfToken()
     res.render('user/SignUp', res.pageInfo)
 }
