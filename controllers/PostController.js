@@ -64,13 +64,14 @@ exports.ViewUserPosts = (req, res) => {
 }
 
 exports.AddPost = (req, res) => {
-    res.pageInfo.title = 'Add Post'
-    res.render('posts/AddPost', res.pageInfo)
+    res.pageInfo.title = 'Add Post';
+    res.pageInfo.csrfToken = req.csrfToken();
+    res.render('posts/AddPost', res.pageInfo);
 }
 
 exports.CreatePost = (req, res) => {
-    let title = req.body.title
-    let content = req.body.content
+    let title = req.sanitize(req.body.title)
+    let content = req.sanitize(req.body.content)
 
     if (Validation.IsNullOrEmpty([title, content])) {
         return Validation.FlashRedirect(req, res, '/posts/new', 'error', Notifications.GetNotification('error', 'allFieldsRequired'))
@@ -115,9 +116,10 @@ exports.EditPost = (req, res) => {
             return Validation.FlashRedirect(req, res, '/posts/user', 'error', Notifications.GetNotification('error', 'postNotFound'))
         } else {
             if (result) {
-                res.pageInfo.title = 'Edit Post '
-                res.pageInfo.post = result
-                res.render('posts/EditPost', res.pageInfo)
+                res.pageInfo.title = 'Edit Post';
+                res.pageInfo.post = result;
+                res.pageInfo.csrfToken = req.csrfToken();
+                res.render('posts/EditPost', res.pageInfo);
             } else {
                 return Validation.FlashRedirect(req, res, '/posts/user', 'error', Notifications.GetNotification('error', 'postNotFound'))
             }
@@ -126,9 +128,9 @@ exports.EditPost = (req, res) => {
 }
 
 exports.UpdatePost = (req, res) => {
-    let title = req.body.title
-    let content = req.body.content
-    let id = req.body.id
+    let title = req.sanitize(req.body.title)
+    let content = req.sanitize(req.body.content)
+    let id = req.sanitize(req.body.id)
 
     Model.PostModel.update(
         { _id: id },

@@ -3,8 +3,6 @@ const Validation = require('../util/Validation');
 const Notifications = require('../util/Notifications');
 
 exports.Index = (req, res) => {
-    res.pageInfo.title = 'Blogarific';
-
     let limit = 5;
     let page = req.query.page || 1;
 
@@ -19,6 +17,7 @@ exports.Index = (req, res) => {
     };
 
     Model.PostModel.paginate({}, options).then((results) => {
+        res.pageInfo.title = 'Blogarific';
         res.pageInfo.pagination.shouldShow = results.docs.length ? true : false;
         res.pageInfo.pagination.data = results;
         res.render('home/index', res.pageInfo);

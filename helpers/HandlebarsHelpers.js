@@ -50,6 +50,5 @@ exports.ShouldPaginateForward = (n, totalPages, options) => {
 }
 
 exports.PaginateNext = (n, options) => {
-    console.log(options.hash);
     return parseInt(n) + 1;
 }

@@ -7,6 +7,7 @@ const express = require('express'),
       cookieParser = require('cookie-parser'),
       customMiddleware = require('./util/Middleware'),
       errorHandler = require('errorhandler'),
+      expressSanitizer = require('express-sanitizer'),
       flash = require('express-flash'),
       handlebars = require('express-handlebars'),
       handlebarsHelpers = require('./helpers/HandlebarsHelpers'),
@@ -29,6 +30,9 @@ app.use(express.static(path.join(__dirname, 'static')))
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+//sanitize input
+app.use(expressSanitizer())
 
 //Morgan - middleware logger
 app.use(logger('dev', { immediate: true }))
