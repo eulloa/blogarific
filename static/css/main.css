@@ -188,7 +188,7 @@ button::-moz-focus-inner {
 .noshow {
   display: none; }
 
-.sectionStyle, .posts, .latest-posts, .popular-posts, .single-post, .profile, .user-list, .notfound {
+.sectionStyle, .posts, .latest-posts, .popular-posts, .pagination, .single-post, .profile, .user-list, .notfound {
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 3px rgba(0, 0, 0, 0.2);
   padding: 1em;
   background-color: #fff; }
@@ -408,14 +408,12 @@ nav {
       top: 45px;
       right: 0; }
 
-.latest-posts {
-  margin-bottom: 1em; }
-  .latest-posts h3 {
-    text-transform: uppercase;
-    background-color: #4C644F;
-    color: #fff;
-    padding: .5em;
-    display: inline-block; }
+.latest-posts h3 {
+  text-transform: uppercase;
+  background-color: #4C644F;
+  color: #fff;
+  padding: .5em;
+  display: inline-block; }
 
 .popular-posts h3 {
   text-transform: uppercase;
@@ -423,6 +421,26 @@ nav {
   color: #fff;
   padding: .5em;
   display: inline-block; }
+
+.pagination {
+  text-align: center;
+  padding: 0;
+  display: flex;
+  justify-content: center; }
+  .pagination li {
+    display: inline-block;
+    margin: 0 .25em; }
+    .pagination li a {
+      padding: .75em;
+      display: inline-block;
+      text-decoration: none;
+      color: #777; }
+      .pagination li a.active {
+        background-color: #972B46;
+        color: #fff;
+        pointer-events: none; }
+      .pagination li a:hover {
+        text-decoration: underline; }
 
 .single-post {
   display: block; }

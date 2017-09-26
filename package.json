@@ -26,6 +26,7 @@
     "js-md5": "^0.6.0",
     "method-override": "^2.3.9",
     "mongoose": "^4.11.5",
+    "mongoose-paginate": "^5.0.3",
     "morgan": "^1.8.2"
   },
   "devDependencies": {

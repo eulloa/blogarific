@@ -1,6 +1,5 @@
 <section class="latest-posts">
-    <h3>Latest Posts</h3>
-    {{#latestPosts}}
+    {{#pagination.data.docs}}
         <section class="post">
             <section class="post-content">
                 <h1>{{ title }}</h1>
@@ -11,9 +10,11 @@
                 <h3>{{#FormatDate date}}{{/FormatDate}}</h3>
             </section>
         </section>
-    {{/latestPosts}}
+    {{else}}
+        <p>Nothing here, come back later!</p>
+    {{/pagination.data.docs}}
 </section>
-<section class="popular-posts">
+<!--<section class="popular-posts">
     <h3>Most Popular</h3>
     {{#mostPopularPosts}}
         <section class="post">
@@ -27,4 +28,5 @@
             </section>
         </section>
     {{/mostPopularPosts}}
-</section>
+</section>-->
+{{> Pagination}}

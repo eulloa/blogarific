@@ -1,6 +1,7 @@
 exports.PageInfoSetup = (req, res, next) => {
     res.pageInfo = {
-        title: ''
+        title: '',
+        pagination: {}
     }
 
     if (req.session.userid) {

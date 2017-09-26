@@ -1,5 +1,6 @@
 const config = require('../config');
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 const connectionString = 'mongodb://' + config[config.environment].database.credentials + config[config.environment].database.host + ':' + config[config.environment].database.port + '/' + config[config.environment].database.name;
 const db = mongoose.connection;
 
@@ -28,6 +29,8 @@ let PostSchema = mongoose.Schema({
     likedBy: [String],
     comments: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Comment' } ]
 })
+
+PostSchema.plugin(mongoosePaginate);
 
 let CommentSchema = mongoose.Schema({
     userId: String,

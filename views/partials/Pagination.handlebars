@@ -1,0 +1,11 @@
+{{#if pagination.shouldShow}}
+    <ul class="pagination">
+        {{#ShouldPaginateBack pagination.data.page}}
+            <li><a class="" href="?page={{#PaginatePrevious ../pagination.data.page}}{{/PaginatePrevious}}">&#10094;</a></li>
+        {{/ShouldPaginateBack}}
+        {{#DoPagination pagination.data.pages  pagination.data.page}}{{/DoPagination}}
+        {{#ShouldPaginateForward pagination.data.page pagination.data.pages}}
+            <li><a href="?page={{#PaginateNext ../pagination.data.page}}{{/PaginateNext}}">&#10095;</a></li>
+        {{/ShouldPaginateForward}}
+    </ul>
+{{/if}}

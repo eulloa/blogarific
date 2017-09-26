@@ -467,7 +467,6 @@ nav {
 
 .latest-posts {
     @extend .sectionStyle;
-    margin-bottom: 1em;
 
     h3 {
         text-transform: uppercase;
@@ -487,6 +486,36 @@ nav {
         color: $white;
         padding: .5em;
         display: inline-block;
+    }
+}
+
+.pagination {
+    @extend .sectionStyle;
+    text-align: center;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+
+    li {
+        display: inline-block;
+        margin: 0 .25em;
+
+        a {
+            padding: .75em;
+            display: inline-block;
+            text-decoration: none;
+            color: $grayDark;
+
+            &.active {
+                background-color: $purplePrimary;
+                color: $white;
+                pointer-events: none;
+            }
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 }
 
