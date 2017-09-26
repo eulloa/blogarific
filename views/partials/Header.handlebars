@@ -9,7 +9,7 @@
 					<li><a class="{{#IsSelected title "My Posts"}}{{/IsSelected}}" href="/posts/user">My Posts</a></li>
 				{{/if}}
 				{{#unless userInfo.username }}
-					<li><a class="{{#IsSelected title "Login"}}{{/IsSelected}}" href="/login">Login</a></li>
+					<li class="login"><a class="{{#IsSelected title "Login"}}{{/IsSelected}}" href="/login">Login</a></li>
 				{{/unless}}
 			</ul>
 			{{#if userInfo.username }}
