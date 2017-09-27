@@ -23,7 +23,7 @@ module.exports = (app) => {
     app.get('/profile/', Authentication.IsUserLoggedIn, UserController.ShowUserProfile)
 
     //Posts
-    app.get('/posts/all', PostController.ViewAllPosts)
+    app.get('/feed', Authentication.IsUserLoggedIn, PostController.ViewFeedPosts)
     app.get('/posts/single/:id', PostController.ViewSinglePost)
     app.get('/posts/user', Authentication.IsUserLoggedIn, PostController.ViewUserPosts)
     app.post('/posts/new', PostController.CreatePost)

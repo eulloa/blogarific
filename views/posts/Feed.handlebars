@@ -31,11 +31,12 @@
                 </ul>
             </section>
             <section class="post-info">
-                <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />
                 <h3>{{#FormatDate date}}{{/FormatDate}}</h3>
+                <h4>{{userId}}</h4>
+                <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />
             </section>
         </section>
     {{else}}
-        <p>There are no posts, come back later!</p>
+        <p>Your feed is looking scant! Check out and start following some of Blogarific&rsquo;s great <a href="/users/all">users</a> to get your list growing!</p>
     {{/posts}}
 </section>

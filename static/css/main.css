@@ -402,7 +402,9 @@ nav {
     width: 80%; }
   .post .post-info {
     width: 20%;
-    text-align: right; }
+    text-align: right;
+    min-height: 140px;
+    /* temporary style */ }
     .post .post-info h3 {
       font-size: .75em;
       position: absolute;
@@ -410,12 +412,18 @@ nav {
       top: 1em;
       right: 0;
       background-color: #84B4EB;
-      color: #fff; }
+      color: #fff;
+      text-transform: uppercase; }
+    .post .post-info h4 {
+      font-size: .75em;
+      position: absolute;
+      right: 0;
+      top: 45px; }
     .post .post-info img {
       width: 35px;
       height: 35px;
       position: absolute;
-      top: 45px;
+      top: 65px;
       right: 0; }
 
 .latest-posts h3 {

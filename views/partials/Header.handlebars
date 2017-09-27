@@ -3,7 +3,9 @@
 		<nav>
 			<ul class="main">
 				<li><a class="logo" href="/"></a></li>
-				<li><a class="{{#IsSelected title "Posts"}}{{/IsSelected}}" href="/posts/all">Posts</a></li>
+				{{#if userInfo.username}}
+					<li><a class="{{#IsSelected title "Feed"}}{{/IsSelected}}" href="/feed">Feed</a></li>
+				{{/if}}
 				<li><a class="{{#IsSelected title "Users"}}{{/IsSelected}}"href="/users/all">Users</a></li>
 				{{#if userInfo.username }}
 					<li><a class="{{#IsSelected title "My Posts"}}{{/IsSelected}}" href="/posts/user">My Posts</a></li>

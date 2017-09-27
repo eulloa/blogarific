@@ -6,8 +6,9 @@
                 <h2>{{ content }}</h2>
             </section>
             <section class="post-info">
-                <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />
                 <h3>{{#FormatDate date}}{{/FormatDate}}</h3>
+                <h4>{{userId}}</h4>
+                <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />
             </section>
         </section>
     {{else}}

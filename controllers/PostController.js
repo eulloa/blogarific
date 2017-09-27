@@ -3,31 +3,52 @@ const Notifications = require('../util/Notifications')
 const Authentication = require('../util/Authentication')
 const Model = require('../models/Models')
 
-exports.ViewAllPosts = (req, res, next) => {
-    Model.PostModel.find({}).populate('comments').exec((error, result) => {
+/*
+    Display follower's posts
+*/
+exports.ViewFeedPosts = (req, res) => {
+    let userId = req.session.username;
+
+    Model.UserModel.findOne({ email: userId }).exec((error, user) => {
         if (error) {
-            return Validation.FlashRedirect(req, res, '/posts', 'error', Notifications.GetNotification('error', 'postsNotFound'))
+            return Validation.FlashRedirect(req, res, '/posts/all', 'error', Notifications.GetNotification('error', 'postsNotFound'));
         } else {
-            res.pageInfo.title = 'Posts'
-            res.pageInfo.posts = Authentication.HasActiveUser(req, res, next) ? [] : result
+            let userFollowingList = user.following;
 
-            if (!res.pageInfo.posts.length) {
-                //if user is logged in, don't let them like a given post more than once
-                res.pageInfo.posts = result.map((post) => {
-                    post = post.toObject()
-                    post.alreadyLiked = false
+            Model.PostModel.find(
+                { 
+                    userId: { $in: userFollowingList }
+                }
+            )
+            .populate('comments')
+            .sort({ date: -1 })
+            .exec((error, result) => {
+                if (error) {
+                    return Validation.FlashRedirect(req, res, '/posts/all', 'error', Notifications.GetNotification('error', 'postsNotFound'));
+                }
+            })
+            .then((followersPosts) => {
+                res.pageInfo.posts = Authentication.HasActiveUser(req, res) ? [] : followersPosts
+                
+                if (!res.pageInfo.posts.length) {
+                    //if user is logged in, don't let them like a given post more than once
+                    res.pageInfo.posts = followersPosts.map((post) => {
+                        post = post.toObject();
+                        post.alreadyLiked = false;
+    
+                        if (this.PostAlreadyLiked(post, req.session.username)) {
+                            post.alreadyLiked = true;
+                        }
+    
+                        return post
+                    });
+                }
 
-                    if (this.PostAlreadyLiked(post, req.session.username)) {
-                        post.alreadyLiked = true
-                    }
-
-                    return post
-                })
-            }
-
-            res.render('posts/ViewAllPosts', res.pageInfo)
+                res.pageInfo.title = 'Feed';
+                res.render('posts/Feed', res.pageInfo);
+            });
         }
-    })
+    });
 }
 
 exports.ViewSinglePost = (req, res) => {
@@ -207,3 +228,30 @@ exports.AddComment = (req, res) => {
         );
     })
 }
+
+// exports.ViewAllPosts = (req, res, next) => {
+//     Model.PostModel.find({}).populate('comments').exec((error, result) => {
+//         if (error) {
+//             return Validation.FlashRedirect(req, res, '/posts', 'error', Notifications.GetNotification('error', 'postsNotFound'))
+//         } else {
+//             res.pageInfo.title = 'Posts'
+//             res.pageInfo.posts = Authentication.HasActiveUser(req, res, next) ? [] : result
+
+//             if (!res.pageInfo.posts.length) {
+//                 //if user is logged in, don't let them like a given post more than once
+//                 res.pageInfo.posts = result.map((post) => {
+//                     post = post.toObject()
+//                     post.alreadyLiked = false
+
+//                     if (this.PostAlreadyLiked(post, req.session.username)) {
+//                         post.alreadyLiked = true
+//                     }
+
+//                     return post
+//                 })
+//             }
+
+//             res.render('posts/ViewAllPosts', res.pageInfo)
+//         }
+//     })
+// }
