@@ -1,11 +1,13 @@
 const Model = require('../models/Models');
 const Validation = require('../util/Validation');
 const Notifications = require('../util/Notifications');
+const AuxController = require('./AuxController')
 
-/*
-**  Paginate through all posts
-*/
+/**
+ * Paginate through all posts
+ */
 exports.Index = (req, res) => {
+    let userId = req.session.username || '';
     let limit = 5;
     let page = req.query.page || 1;
 
@@ -21,16 +23,7 @@ exports.Index = (req, res) => {
 
     Model.PostModel.paginate({}, options)
     .then((result) => {
-        //if user is logged in, don't let them like a given post more than once
-        res.pageInfo.pagination.data = result.docs.map((post) => {
-            post.alreadyLiked = false;
-
-            if (this.PostAlreadyLiked(post, req.session.username)) {
-                post.alreadyLiked = true;
-            }
-
-            return post
-        });
+        res.pageInfo.pagination.data = AuxController.CreatePaginationPosts(result.docs, userId); 
 
         res.pageInfo.title = 'Blogarific';
         res.pageInfo.pagination.shouldShow = result.docs.length ? true : false;
@@ -41,11 +34,4 @@ exports.Index = (req, res) => {
     .catch((reject) => {
         return Validation.FlashRedirect(req, res, '/', 'error', Notifications.GetNotification('error', 'postsNotFound'));
     });
-}
-
-exports.PostAlreadyLiked = (post, userid) => {
-    if (post.likedBy.includes(userid))
-        return true
-
-    return false
 }

@@ -2,10 +2,11 @@ const Validation = require('../util/Validation')
 const Notifications = require('../util/Notifications')
 const Authentication = require('../util/Authentication')
 const Model = require('../models/Models')
+const AuxController = require('./AuxController')
 
-/*
-** Query for follower's posts only
-*/
+/**
+ * Query for follower's posts only
+ */
 exports.ViewFeedPosts = (req, res) => {
     let userId = req.session.username;
 
@@ -32,22 +33,13 @@ exports.ViewFeedPosts = (req, res) => {
 
             Model.PostModel.paginate(query, options)
             .then((result) => {
-                //if user is logged in, don't let them like a given post more than once
-                res.pageInfo.pagination.data = result.docs.map((post) => {
-                    post.alreadyLiked = false;
-
-                    if (this.PostAlreadyLiked(post, req.session.username)) {
-                        post.alreadyLiked = true;
-                    }
-
-                    return post
-                });
+                res.pageInfo.pagination.data = AuxController.CreatePaginationPosts(result.docs, userId);
 
                 res.pageInfo.title = 'Feed';
                 res.pageInfo.pagination.shouldShow = result.docs.length ? true : false;
                 res.pageInfo.pagination.data.page = result.page;
                 res.pageInfo.pagination.data.pages = result.pages;
-                res.render('posts/Feed', res.pageInfo);
+                res.render('partials/Posts', res.pageInfo);
             })
             .catch((reject) => {
                 return Validation.FlashRedirect(req, res, '/feed', 'error', Notifications.GetNotification('error', 'postsNotFound'));
@@ -191,13 +183,6 @@ exports.LikePost = (req, res) => {
     )
 }
 
-exports.PostAlreadyLiked = (post, userid) => {
-    if (post.likedBy.includes(userid))
-        return true
-
-    return false
-}
-
 exports.AddComment = (req, res) => {
     let commentBody = req.body.comment;
     let postid = req.params.id;
@@ -233,30 +218,3 @@ exports.AddComment = (req, res) => {
         );
     })
 }
-
-// exports.ViewAllPosts = (req, res, next) => {
-//     Model.PostModel.find({}).populate('comments').exec((error, result) => {
-//         if (error) {
-//             return Validation.FlashRedirect(req, res, '/posts', 'error', Notifications.GetNotification('error', 'postsNotFound'))
-//         } else {
-//             res.pageInfo.title = 'Posts'
-//             res.pageInfo.posts = Authentication.HasActiveUser(req, res, next) ? [] : result
-
-//             if (!res.pageInfo.posts.length) {
-//                 //if user is logged in, don't let them like a given post more than once
-//                 res.pageInfo.posts = result.map((post) => {
-//                     post = post.toObject()
-//                     post.alreadyLiked = false
-
-//                     if (this.PostAlreadyLiked(post, req.session.username)) {
-//                         post.alreadyLiked = true
-//                     }
-
-//                     return post
-//                 })
-//             }
-
-//             res.render('posts/ViewAllPosts', res.pageInfo)
-//         }
-//     })
-// }
