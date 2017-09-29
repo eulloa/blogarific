@@ -1,9 +1,34 @@
-<section class="latest-posts">
-    {{#pagination.data.docs}}
+<section class="posts">
+    {{#pagination.data}}
         <section class="post">
             <section class="post-content">
                 <h1>{{ title }}</h1>
                 <h2>{{ content }}</h2>
+                {{#if ../userInfo.username }}
+                    {{#unless alreadyLiked}}
+                        <span class="like-post" data-postid="{{_id}}">&#128077;</span>
+                    {{/unless}}
+                {{/if}}
+                <p class="likes"><span>&#9829;</span> <b>{{ likes }}</b></p>
+                {{#if ../userInfo.username }}
+                    <div class="comments-form">
+                        <i></i>
+                        <form class="noshow" method="post" action="/posts/comment/{{_id}}">
+                            <input type="text" placeholder="Add a comment..." name="comment" autofocus />
+                            <input type="hidden" name="postid" value="{{_id}}" />
+                            <input class="btn small" type="submit" value="Submit" />
+                        </form>
+                    </div>
+                {{/if}}
+                {{#if comments}}
+                    <span class="view-comments">View <span class="num-of-comments">{{#GetArrayLength comments}}{{/GetArrayLength}}</span> {{#FormatMessage comments}}{{/FormatMessage}}</span>
+                    <span class="hide-comments noshow">Hide comments</span>
+                {{/if}}
+                <ul class="comments noshow">
+                    {{#comments}}
+                        <li><span>{{ comment }}</span> - {{#FormatDate date}}{{/FormatDate}}</li>
+                    {{/comments}}
+                </ul>
             </section>
             <section class="post-info">
                 <h3>{{#FormatDate date}}{{/FormatDate}}</h3>
@@ -13,21 +38,13 @@
         </section>
     {{else}}
         <p>Nothing here, come back later!</p>
-    {{/pagination.data.docs}}
+    {{/pagination.data}}
 </section>
-<!--<section class="popular-posts">
-    <h3>Most Popular</h3>
-    {{#mostPopularPosts}}
-        <section class="post">
-            <section class="post-content">
-                <h1>{{ title }}</h1>
-                <h2>{{ content }}</h2>
-            </section>
-            <section class="post-info">
-                <img src="{{#GetGravatar userId}}{{/GetGravatar}}" />
-                <h3>{{#FormatDate date}}{{/FormatDate}}</h3>
-            </section>
-        </section>
-    {{/mostPopularPosts}}
-</section>-->
 {{> Pagination}}
+
+<!-- 
+    TODO:
+    - Index and Feed should be one template
+    - Update HomeController.Index to prevent liking a given post more than once
+        - Wrap that functionality in a reusable function since we're now using it in multiple places
+-->

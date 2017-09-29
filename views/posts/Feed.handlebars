@@ -1,5 +1,5 @@
 <section class="posts">
-    {{#posts}}
+    {{#pagination.data}}
         <section class="post">
             <section class="post-content">
                 <h1>{{ title }}</h1>
@@ -38,5 +38,6 @@
         </section>
     {{else}}
         <p>Your feed is looking scant! Check out and start following some of Blogarific&rsquo;s great <a href="/users/all">users</a> to get your list growing!</p>
-    {{/posts}}
+    {{/pagination.data}}
 </section>
+{{> Pagination}}

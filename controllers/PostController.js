@@ -4,48 +4,53 @@ const Authentication = require('../util/Authentication')
 const Model = require('../models/Models')
 
 /*
-    Display follower's posts
+** Query for follower's posts only
 */
 exports.ViewFeedPosts = (req, res) => {
     let userId = req.session.username;
 
     Model.UserModel.findOne({ email: userId }).exec((error, user) => {
         if (error) {
-            return Validation.FlashRedirect(req, res, '/posts/all', 'error', Notifications.GetNotification('error', 'postsNotFound'));
+            return Validation.FlashRedirect(req, res, '/feed', 'error', Notifications.GetNotification('error', 'postsNotFound'));
         } else {
+            let limit = 5;
             let userFollowingList = user.following;
+            let page = req.query.page || 1;
+            page = page < 1 ? 1 : page;
 
-            Model.PostModel.find(
-                { 
-                    userId: { $in: userFollowingList }
-                }
-            )
-            .populate('comments')
-            .sort({ date: -1 })
-            .exec((error, result) => {
-                if (error) {
-                    return Validation.FlashRedirect(req, res, '/posts/all', 'error', Notifications.GetNotification('error', 'postsNotFound'));
-                }
-            })
-            .then((followersPosts) => {
-                res.pageInfo.posts = Authentication.HasActiveUser(req, res) ? [] : followersPosts
-                
-                if (!res.pageInfo.posts.length) {
-                    //if user is logged in, don't let them like a given post more than once
-                    res.pageInfo.posts = followersPosts.map((post) => {
-                        post = post.toObject();
-                        post.alreadyLiked = false;
-    
-                        if (this.PostAlreadyLiked(post, req.session.username)) {
-                            post.alreadyLiked = true;
-                        }
-    
-                        return post
-                    });
-                }
+            let query = {
+                userId: { $in: userFollowingList }
+            }
+
+            let options = {
+                sort: { date: -1 },
+                populate: 'comments',
+                lean: true,
+                limit: limit,
+                page: page
+            }
+
+            Model.PostModel.paginate(query, options)
+            .then((result) => {
+                //if user is logged in, don't let them like a given post more than once
+                res.pageInfo.pagination.data = result.docs.map((post) => {
+                    post.alreadyLiked = false;
+
+                    if (this.PostAlreadyLiked(post, req.session.username)) {
+                        post.alreadyLiked = true;
+                    }
+
+                    return post
+                });
 
                 res.pageInfo.title = 'Feed';
+                res.pageInfo.pagination.shouldShow = result.docs.length ? true : false;
+                res.pageInfo.pagination.data.page = result.page;
+                res.pageInfo.pagination.data.pages = result.pages;
                 res.render('posts/Feed', res.pageInfo);
+            })
+            .catch((reject) => {
+                return Validation.FlashRedirect(req, res, '/feed', 'error', Notifications.GetNotification('error', 'postsNotFound'));
             });
         }
     });
@@ -187,7 +192,7 @@ exports.LikePost = (req, res) => {
 }
 
 exports.PostAlreadyLiked = (post, userid) => {
-    if (post.likedBy.indexOf(userid) !== -1)
+    if (post.likedBy.includes(userid))
         return true
 
     return false

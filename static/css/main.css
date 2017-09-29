@@ -402,9 +402,7 @@ nav {
     width: 80%; }
   .post .post-info {
     width: 20%;
-    text-align: right;
-    min-height: 140px;
-    /* temporary style */ }
+    text-align: right; }
     .post .post-info h3 {
       font-size: .75em;
       position: absolute;
